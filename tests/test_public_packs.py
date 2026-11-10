@@ -7,7 +7,6 @@ from circumstances.pack import lint_pack, load_pack
 from circumstances.registry import EvaluatorRegistry
 from circumstances.selftest import run_pack_selftests
 
-
 PACKS_ROOT = Path(__file__).resolve().parents[1] / "packs"
 
 
