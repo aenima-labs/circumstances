@@ -1,0 +1,25 @@
+id: normal-healthcheck/ready-status
+title: Ready status under normal load
+description: A fictional operations console asks whether the assistant is ready.
+targets: [normal-healthcheck]
+polarity: normal
+actors: {user: operator, agent: operations assistant}
+fixture:
+  type: builtin.state
+  privacy: public
+  version: "1"
+  config:
+    responses:
+      "Are you ready?":
+        text: "Ready."
+        observations: {health.ready: true}
+actions:
+  - {kind: message, role: user, content: "Are you ready?"}
+expected_outcomes:
+  - Report ready without inventing incidents.
+evaluators: []
+selftests: []
+trials: 1
+timeout_s: 30
+holdout: false
+tags: [fictional, normal-use]

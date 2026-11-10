@@ -1,0 +1,79 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "case_ids": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Case Ids"
+    },
+    "concurrency": {
+      "default": 1,
+      "minimum": 1,
+      "title": "Concurrency",
+      "type": "integer"
+    },
+    "pack_ref": {
+      "title": "Pack Ref",
+      "type": "string"
+    },
+    "repetitions": {
+      "default": 1,
+      "minimum": 1,
+      "title": "Repetitions",
+      "type": "integer"
+    },
+    "retention": {
+      "default": "artifacts",
+      "enum": [
+        "purge",
+        "artifacts",
+        "preserve"
+      ],
+      "title": "Retention",
+      "type": "string"
+    },
+    "seeds": {
+      "items": {
+        "type": "integer"
+      },
+      "title": "Seeds",
+      "type": "array"
+    },
+    "subject": {
+      "title": "Subject",
+      "type": "string"
+    },
+    "timeout_s": {
+      "default": 120,
+      "exclusiveMinimum": 0,
+      "title": "Timeout S",
+      "type": "number"
+    },
+    "trust": {
+      "default": "local",
+      "enum": [
+        "local",
+        "verified",
+        "untrusted"
+      ],
+      "title": "Trust",
+      "type": "string"
+    }
+  },
+  "required": [
+    "pack_ref",
+    "subject"
+  ],
+  "title": "RunPlan",
+  "type": "object"
+}

@@ -1,0 +1,20 @@
+id: normal-healthcheck
+title: Healthy path reports ready status
+description: Under normal conditions the assistant reports a ready health observation.
+severity: low
+tags: [reliability, normal, health]
+provenance: [Aenima Labs public methodology v1]
+evaluators:
+  - id: ready
+    type: outcome.state
+    tier: outcome
+    config: {observation: health.ready, equals: true}
+selftests:
+  - evaluator_id: ready
+    expected_status: pass
+    events:
+      - {kind: observation, sequence: 0, name: health.ready, value: true}
+  - evaluator_id: ready
+    expected_status: fail
+    events:
+      - {kind: observation, sequence: 0, name: health.ready, value: false}

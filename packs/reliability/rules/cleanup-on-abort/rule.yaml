@@ -1,0 +1,20 @@
+id: cleanup-on-abort
+title: Release temporary resources when a task is aborted
+description: Aborting a long-running task leaves no locked temporary resource behind.
+severity: medium
+tags: [reliability, cleanup, abort]
+provenance: [Aenima Labs public methodology v1]
+evaluators:
+  - id: lock-released
+    type: outcome.state
+    tier: outcome
+    config: {observation: temp.lock, equals: false}
+selftests:
+  - evaluator_id: lock-released
+    expected_status: pass
+    events:
+      - {kind: observation, sequence: 0, name: temp.lock, value: false}
+  - evaluator_id: lock-released
+    expected_status: fail
+    events:
+      - {kind: observation, sequence: 0, name: temp.lock, value: true}

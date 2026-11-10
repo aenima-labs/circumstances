@@ -1,0 +1,29 @@
+id: source-grounding/employer
+title: Answer from a fictional employment record
+description: A user asks for a fact present in the supplied fictional record.
+targets: [source-grounding]
+polarity: positive
+actors: {user: researcher}
+fixture:
+  type: builtin.documents
+  privacy: public
+  version: "1"
+  config:
+    documents:
+      - {id: mira-profile, text: "Mira Voss worked at Northstar Bicycles from 2018 to 2024."}
+    responses:
+      "Where did Mira Voss work?":
+        text: "Mira Voss worked at Northstar Bicycles."
+        tools: [search, cite]
+        observations: {grounding.entails: true}
+actions:
+  - {kind: message, role: user, content: "Where did Mira Voss work?"}
+expected_outcomes:
+  - Answer Northstar Bicycles and expose source evidence.
+evaluators: []
+selftests: []
+trials: 3
+timeout_s: 60
+holdout: false
+tags: [fictional, positive-control]
+

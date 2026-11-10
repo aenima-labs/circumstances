@@ -1,0 +1,1140 @@
+{
+  "$defs": {
+    "ArtifactEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "action_index": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Action Index"
+        },
+        "digest": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Digest"
+        },
+        "kind": {
+          "const": "artifact",
+          "default": "artifact",
+          "title": "Kind",
+          "type": "string"
+        },
+        "media_type": {
+          "title": "Media Type",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "sequence": {
+          "minimum": 0,
+          "title": "Sequence",
+          "type": "integer"
+        },
+        "timestamp": {
+          "format": "date-time",
+          "title": "Timestamp",
+          "type": "string"
+        },
+        "uri": {
+          "title": "Uri",
+          "type": "string"
+        }
+      },
+      "required": [
+        "sequence",
+        "name",
+        "media_type",
+        "uri"
+      ],
+      "title": "ArtifactEvent",
+      "type": "object"
+    },
+    "ContextSnapshotEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "action_index": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Action Index"
+        },
+        "components": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JSONValue"
+          },
+          "title": "Components",
+          "type": "object"
+        },
+        "kind": {
+          "const": "context_snapshot",
+          "default": "context_snapshot",
+          "title": "Kind",
+          "type": "string"
+        },
+        "sequence": {
+          "minimum": 0,
+          "title": "Sequence",
+          "type": "integer"
+        },
+        "timestamp": {
+          "format": "date-time",
+          "title": "Timestamp",
+          "type": "string"
+        }
+      },
+      "required": [
+        "sequence"
+      ],
+      "title": "ContextSnapshotEvent",
+      "type": "object"
+    },
+    "EnvironmentAction": {
+      "additionalProperties": false,
+      "properties": {
+        "arguments": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JSONValue"
+          },
+          "title": "Arguments",
+          "type": "object"
+        },
+        "kind": {
+          "const": "environment",
+          "default": "environment",
+          "title": "Kind",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "title": "EnvironmentAction",
+      "type": "object"
+    },
+    "EvaluatorSelfTest": {
+      "additionalProperties": false,
+      "properties": {
+        "evaluator_id": {
+          "title": "Evaluator Id",
+          "type": "string"
+        },
+        "events": {
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "artifact": "#/$defs/ArtifactEvent",
+                "context_snapshot": "#/$defs/ContextSnapshotEvent",
+                "extension": "#/$defs/ExtensionEvent",
+                "message": "#/$defs/MessageEvent",
+                "metric": "#/$defs/MetricEvent",
+                "observation": "#/$defs/ObservationEvent",
+                "policy_decision": "#/$defs/PolicyDecisionEvent",
+                "state_change": "#/$defs/StateChangeEvent",
+                "terminal": "#/$defs/TerminalEvent",
+                "tool_call": "#/$defs/ToolCallEvent",
+                "tool_result": "#/$defs/ToolResultEvent"
+              },
+              "propertyName": "kind"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/MessageEvent"
+              },
+              {
+                "$ref": "#/$defs/ToolCallEvent"
+              },
+              {
+                "$ref": "#/$defs/ToolResultEvent"
+              },
+              {
+                "$ref": "#/$defs/ObservationEvent"
+              },
+              {
+                "$ref": "#/$defs/ArtifactEvent"
+              },
+              {
+                "$ref": "#/$defs/StateChangeEvent"
+              },
+              {
+                "$ref": "#/$defs/ContextSnapshotEvent"
+              },
+              {
+                "$ref": "#/$defs/PolicyDecisionEvent"
+              },
+              {
+                "$ref": "#/$defs/MetricEvent"
+              },
+              {
+                "$ref": "#/$defs/TerminalEvent"
+              },
+              {
+                "$ref": "#/$defs/ExtensionEvent"
+              }
+            ]
+          },
+          "title": "Events",
+          "type": "array"
+        },
+        "expected_status": {
+          "enum": [
+            "pass",
+            "fail",
+            "unknown",
+            "error",
+            "skipped"
+          ],
+          "title": "Expected Status",
+          "type": "string"
+        },
+        "note": {
+          "default": "",
+          "title": "Note",
+          "type": "string"
+        }
+      },
+      "required": [
+        "evaluator_id",
+        "expected_status",
+        "events"
+      ],
+      "title": "EvaluatorSelfTest",
+      "type": "object"
+    },
+    "EvaluatorSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "action_indexes": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "integer"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Action Indexes"
+        },
+        "config": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JSONValue"
+          },
+          "title": "Config",
+          "type": "object"
+        },
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "scope": {
+          "default": "trajectory",
+          "enum": [
+            "action",
+            "trajectory",
+            "outcome"
+          ],
+          "title": "Scope",
+          "type": "string"
+        },
+        "soft": {
+          "default": false,
+          "title": "Soft",
+          "type": "boolean"
+        },
+        "tier": {
+          "enum": [
+            "static",
+            "smoke",
+            "outcome",
+            "semantic",
+            "situational",
+            "end_to_end",
+            "human"
+          ],
+          "title": "Tier",
+          "type": "string"
+        },
+        "type": {
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "tier"
+      ],
+      "title": "EvaluatorSpec",
+      "type": "object"
+    },
+    "ExtensionAction": {
+      "additionalProperties": false,
+      "properties": {
+        "input": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JSONValue"
+          },
+          "title": "Input",
+          "type": "object"
+        },
+        "kind": {
+          "const": "extension",
+          "default": "extension",
+          "title": "Kind",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "namespace": {
+          "title": "Namespace",
+          "type": "string"
+        }
+      },
+      "required": [
+        "namespace",
+        "name"
+      ],
+      "title": "ExtensionAction",
+      "type": "object"
+    },
+    "ExtensionEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "action_index": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Action Index"
+        },
+        "kind": {
+          "const": "extension",
+          "default": "extension",
+          "title": "Kind",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "namespace": {
+          "title": "Namespace",
+          "type": "string"
+        },
+        "payload": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JSONValue"
+          },
+          "title": "Payload",
+          "type": "object"
+        },
+        "sequence": {
+          "minimum": 0,
+          "title": "Sequence",
+          "type": "integer"
+        },
+        "timestamp": {
+          "format": "date-time",
+          "title": "Timestamp",
+          "type": "string"
+        }
+      },
+      "required": [
+        "sequence",
+        "namespace",
+        "name"
+      ],
+      "title": "ExtensionEvent",
+      "type": "object"
+    },
+    "FixtureRef": {
+      "additionalProperties": false,
+      "properties": {
+        "config": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JSONValue"
+          },
+          "title": "Config",
+          "type": "object"
+        },
+        "digest": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Digest"
+        },
+        "privacy": {
+          "default": "public",
+          "enum": [
+            "public",
+            "internal",
+            "confidential",
+            "restricted"
+          ],
+          "title": "Privacy",
+          "type": "string"
+        },
+        "type": {
+          "title": "Type",
+          "type": "string"
+        },
+        "version": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Version"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "title": "FixtureRef",
+      "type": "object"
+    },
+    "GeneratedMessageAction": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "generated_message",
+          "default": "generated_message",
+          "title": "Kind",
+          "type": "string"
+        },
+        "model": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Model"
+        },
+        "persona": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Persona"
+        },
+        "prompt": {
+          "title": "Prompt",
+          "type": "string"
+        }
+      },
+      "required": [
+        "prompt"
+      ],
+      "title": "GeneratedMessageAction",
+      "type": "object"
+    },
+    "JSONValue": {
+      "$ref": "#/$defs/JsonValue"
+    },
+    "JsonValue": {},
+    "MessageAction": {
+      "additionalProperties": false,
+      "properties": {
+        "content": {
+          "title": "Content",
+          "type": "string"
+        },
+        "kind": {
+          "const": "message",
+          "default": "message",
+          "title": "Kind",
+          "type": "string"
+        },
+        "role": {
+          "default": "user",
+          "enum": [
+            "user",
+            "system",
+            "environment"
+          ],
+          "title": "Role",
+          "type": "string"
+        }
+      },
+      "required": [
+        "content"
+      ],
+      "title": "MessageAction",
+      "type": "object"
+    },
+    "MessageEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "action_index": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Action Index"
+        },
+        "channel": {
+          "default": "delivered",
+          "title": "Channel",
+          "type": "string"
+        },
+        "content": {
+          "title": "Content",
+          "type": "string"
+        },
+        "kind": {
+          "const": "message",
+          "default": "message",
+          "title": "Kind",
+          "type": "string"
+        },
+        "role": {
+          "enum": [
+            "user",
+            "assistant",
+            "system",
+            "environment"
+          ],
+          "title": "Role",
+          "type": "string"
+        },
+        "sequence": {
+          "minimum": 0,
+          "title": "Sequence",
+          "type": "integer"
+        },
+        "timestamp": {
+          "format": "date-time",
+          "title": "Timestamp",
+          "type": "string"
+        }
+      },
+      "required": [
+        "sequence",
+        "role",
+        "content"
+      ],
+      "title": "MessageEvent",
+      "type": "object"
+    },
+    "MetricEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "action_index": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Action Index"
+        },
+        "kind": {
+          "const": "metric",
+          "default": "metric",
+          "title": "Kind",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "sequence": {
+          "minimum": 0,
+          "title": "Sequence",
+          "type": "integer"
+        },
+        "timestamp": {
+          "format": "date-time",
+          "title": "Timestamp",
+          "type": "string"
+        },
+        "unit": {
+          "default": "",
+          "title": "Unit",
+          "type": "string"
+        },
+        "value": {
+          "title": "Value",
+          "type": "number"
+        }
+      },
+      "required": [
+        "sequence",
+        "name",
+        "value"
+      ],
+      "title": "MetricEvent",
+      "type": "object"
+    },
+    "ObservationEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "action_index": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Action Index"
+        },
+        "kind": {
+          "const": "observation",
+          "default": "observation",
+          "title": "Kind",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "sequence": {
+          "minimum": 0,
+          "title": "Sequence",
+          "type": "integer"
+        },
+        "timestamp": {
+          "format": "date-time",
+          "title": "Timestamp",
+          "type": "string"
+        },
+        "value": {
+          "$ref": "#/$defs/JSONValue",
+          "default": null
+        }
+      },
+      "required": [
+        "sequence",
+        "name"
+      ],
+      "title": "ObservationEvent",
+      "type": "object"
+    },
+    "PolicyDecisionEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "action_index": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Action Index"
+        },
+        "decision": {
+          "title": "Decision",
+          "type": "string"
+        },
+        "kind": {
+          "const": "policy_decision",
+          "default": "policy_decision",
+          "title": "Kind",
+          "type": "string"
+        },
+        "policy": {
+          "title": "Policy",
+          "type": "string"
+        },
+        "reason": {
+          "default": "",
+          "title": "Reason",
+          "type": "string"
+        },
+        "sequence": {
+          "minimum": 0,
+          "title": "Sequence",
+          "type": "integer"
+        },
+        "timestamp": {
+          "format": "date-time",
+          "title": "Timestamp",
+          "type": "string"
+        }
+      },
+      "required": [
+        "sequence",
+        "policy",
+        "decision"
+      ],
+      "title": "PolicyDecisionEvent",
+      "type": "object"
+    },
+    "StateChangeEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "action_index": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Action Index"
+        },
+        "after": {
+          "$ref": "#/$defs/JSONValue",
+          "default": null
+        },
+        "before": {
+          "$ref": "#/$defs/JSONValue",
+          "default": null
+        },
+        "kind": {
+          "const": "state_change",
+          "default": "state_change",
+          "title": "Kind",
+          "type": "string"
+        },
+        "path": {
+          "title": "Path",
+          "type": "string"
+        },
+        "sequence": {
+          "minimum": 0,
+          "title": "Sequence",
+          "type": "integer"
+        },
+        "timestamp": {
+          "format": "date-time",
+          "title": "Timestamp",
+          "type": "string"
+        }
+      },
+      "required": [
+        "sequence",
+        "path"
+      ],
+      "title": "StateChangeEvent",
+      "type": "object"
+    },
+    "TerminalEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "action_index": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Action Index"
+        },
+        "kind": {
+          "const": "terminal",
+          "default": "terminal",
+          "title": "Kind",
+          "type": "string"
+        },
+        "reason": {
+          "default": "",
+          "title": "Reason",
+          "type": "string"
+        },
+        "sequence": {
+          "minimum": 0,
+          "title": "Sequence",
+          "type": "integer"
+        },
+        "status": {
+          "enum": [
+            "completed",
+            "failed",
+            "canceled",
+            "timed_out"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "timestamp": {
+          "format": "date-time",
+          "title": "Timestamp",
+          "type": "string"
+        }
+      },
+      "required": [
+        "sequence",
+        "status"
+      ],
+      "title": "TerminalEvent",
+      "type": "object"
+    },
+    "ToolCallEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "action_index": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Action Index"
+        },
+        "arguments": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JSONValue"
+          },
+          "title": "Arguments",
+          "type": "object"
+        },
+        "call_id": {
+          "title": "Call Id",
+          "type": "string"
+        },
+        "kind": {
+          "const": "tool_call",
+          "default": "tool_call",
+          "title": "Kind",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "sequence": {
+          "minimum": 0,
+          "title": "Sequence",
+          "type": "integer"
+        },
+        "timestamp": {
+          "format": "date-time",
+          "title": "Timestamp",
+          "type": "string"
+        }
+      },
+      "required": [
+        "sequence",
+        "call_id",
+        "name"
+      ],
+      "title": "ToolCallEvent",
+      "type": "object"
+    },
+    "ToolResultEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "action_index": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Action Index"
+        },
+        "call_id": {
+          "title": "Call Id",
+          "type": "string"
+        },
+        "error": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Error"
+        },
+        "kind": {
+          "const": "tool_result",
+          "default": "tool_result",
+          "title": "Kind",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "output": {
+          "$ref": "#/$defs/JSONValue",
+          "default": null
+        },
+        "sequence": {
+          "minimum": 0,
+          "title": "Sequence",
+          "type": "integer"
+        },
+        "timestamp": {
+          "format": "date-time",
+          "title": "Timestamp",
+          "type": "string"
+        }
+      },
+      "required": [
+        "sequence",
+        "call_id",
+        "name"
+      ],
+      "title": "ToolResultEvent",
+      "type": "object"
+    },
+    "WaitAction": {
+      "additionalProperties": false,
+      "properties": {
+        "duration_s": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Duration S"
+        },
+        "kind": {
+          "const": "wait",
+          "default": "wait",
+          "title": "Kind",
+          "type": "string"
+        },
+        "until": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Until"
+        }
+      },
+      "title": "WaitAction",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "actions": {
+      "items": {
+        "discriminator": {
+          "mapping": {
+            "environment": "#/$defs/EnvironmentAction",
+            "extension": "#/$defs/ExtensionAction",
+            "generated_message": "#/$defs/GeneratedMessageAction",
+            "message": "#/$defs/MessageAction",
+            "wait": "#/$defs/WaitAction"
+          },
+          "propertyName": "kind"
+        },
+        "oneOf": [
+          {
+            "$ref": "#/$defs/MessageAction"
+          },
+          {
+            "$ref": "#/$defs/GeneratedMessageAction"
+          },
+          {
+            "$ref": "#/$defs/WaitAction"
+          },
+          {
+            "$ref": "#/$defs/EnvironmentAction"
+          },
+          {
+            "$ref": "#/$defs/ExtensionAction"
+          }
+        ]
+      },
+      "minItems": 1,
+      "title": "Actions",
+      "type": "array"
+    },
+    "actors": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "title": "Actors",
+      "type": "object"
+    },
+    "description": {
+      "default": "",
+      "title": "Description",
+      "type": "string"
+    },
+    "evaluators": {
+      "items": {
+        "$ref": "#/$defs/EvaluatorSpec"
+      },
+      "title": "Evaluators",
+      "type": "array"
+    },
+    "expected_outcomes": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Expected Outcomes",
+      "type": "array"
+    },
+    "fixture": {
+      "$ref": "#/$defs/FixtureRef"
+    },
+    "holdout": {
+      "default": false,
+      "title": "Holdout",
+      "type": "boolean"
+    },
+    "id": {
+      "title": "Id",
+      "type": "string"
+    },
+    "polarity": {
+      "enum": [
+        "positive",
+        "negative",
+        "attack",
+        "recovery",
+        "normal"
+      ],
+      "title": "Polarity",
+      "type": "string"
+    },
+    "selftests": {
+      "items": {
+        "$ref": "#/$defs/EvaluatorSelfTest"
+      },
+      "title": "Selftests",
+      "type": "array"
+    },
+    "tags": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Tags",
+      "type": "array"
+    },
+    "targets": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Targets",
+      "type": "array"
+    },
+    "timeout_s": {
+      "default": 120,
+      "exclusiveMinimum": 0,
+      "title": "Timeout S",
+      "type": "number"
+    },
+    "title": {
+      "title": "Title",
+      "type": "string"
+    },
+    "trials": {
+      "default": 1,
+      "minimum": 1,
+      "title": "Trials",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "id",
+    "title",
+    "targets",
+    "polarity",
+    "fixture",
+    "actions"
+  ],
+  "title": "CaseSpec",
+  "type": "object"
+}

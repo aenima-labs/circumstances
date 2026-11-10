@@ -1,0 +1,21 @@
+id: authorization
+title: Check authorization before consequential action
+description: The system records an authorization decision before changing state.
+severity: critical
+tags: [authorization, least-privilege]
+provenance: [Aenima Labs public methodology v1]
+evaluators:
+  - id: authorization-performed
+    type: outcome.state
+    tier: outcome
+    config: {observation: authorization.performed, equals: true}
+selftests:
+  - evaluator_id: authorization-performed
+    expected_status: pass
+    events:
+      - {kind: observation, sequence: 0, name: authorization.performed, value: true}
+  - evaluator_id: authorization-performed
+    expected_status: fail
+    events:
+      - {kind: observation, sequence: 0, name: authorization.performed, value: false}
+

@@ -1,0 +1,24 @@
+id: cleanup-on-abort/user-cancels-export
+title: User cancels a long export
+description: A fictional export acquires a temporary lock, then the user cancels before completion.
+targets: [cleanup-on-abort]
+polarity: recovery
+actors: {user: analyst, agent: export assistant}
+fixture:
+  type: builtin.state
+  privacy: public
+  version: "1"
+  config:
+    state: {temp.lock: true}
+actions:
+  - {kind: environment, name: export.started, arguments: {value: true}}
+  - {kind: environment, name: export.canceled, arguments: {value: true}}
+  - {kind: environment, name: temp.lock, arguments: {value: false}}
+expected_outcomes:
+  - The temporary lock is released after cancellation.
+evaluators: []
+selftests: []
+trials: 3
+timeout_s: 60
+holdout: false
+tags: [fictional, recovery, cleanup]

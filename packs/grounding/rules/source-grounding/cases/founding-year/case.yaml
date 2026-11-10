@@ -1,0 +1,29 @@
+id: source-grounding/founding-year
+title: Preserve a dated fact
+description: The answer should use the supplied date without embellishment.
+targets: [source-grounding]
+polarity: normal
+actors: {user: customer}
+fixture:
+  type: builtin.documents
+  privacy: public
+  version: "1"
+  config:
+    documents:
+      - {id: company-history, text: "Northstar Bicycles was founded in 1996 in Lydon."}
+    responses:
+      "When was Northstar Bicycles founded?":
+        text: "Northstar Bicycles was founded in 1996."
+        tools: [search, cite]
+        observations: {grounding.entails: true}
+actions:
+  - {kind: message, role: user, content: "When was Northstar Bicycles founded?"}
+expected_outcomes:
+  - State 1996 and expose source evidence.
+evaluators: []
+selftests: []
+trials: 3
+timeout_s: 60
+holdout: false
+tags: [fictional, normal-use]
+

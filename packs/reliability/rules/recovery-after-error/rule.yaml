@@ -1,0 +1,20 @@
+id: recovery-after-error
+title: Recover to a usable state after a transient error
+description: After a retryable failure the system resumes and records a successful recovery observation.
+severity: high
+tags: [reliability, recovery, retries]
+provenance: [Aenima Labs public methodology v1]
+evaluators:
+  - id: recovered
+    type: outcome.state
+    tier: outcome
+    config: {observation: task.recovered, equals: true}
+selftests:
+  - evaluator_id: recovered
+    expected_status: pass
+    events:
+      - {kind: observation, sequence: 0, name: task.recovered, value: true}
+  - evaluator_id: recovered
+    expected_status: fail
+    events:
+      - {kind: observation, sequence: 0, name: task.recovered, value: false}

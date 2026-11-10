@@ -1,0 +1,67 @@
+[project]
+name = "circumstances"
+version = "0.1.0"
+description = "Open-source situational testing framework for AI agents"
+readme = "README.md"
+license = "Apache-2.0"
+requires-python = ">=3.12"
+authors = [{ name = "Aenima Labs", email = "hello@aenimalabs.com" }]
+keywords = ["agents", "evaluation", "testing", "safety", "situational-testing"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "License :: OSI Approved :: Apache Software License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Software Development :: Testing",
+]
+dependencies = [
+  "pydantic>=2.10",
+  "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+http = ["httpx>=0.27"]
+server = ["fastapi>=0.115", "uvicorn>=0.32"]
+dev = [
+  "build>=1.2",
+  "httpx>=0.27",
+  "mypy>=1.13",
+  "pytest>=8.0",
+  "pytest-asyncio>=0.24",
+  "ruff>=0.8",
+  "types-PyYAML>=6.0",
+]
+
+[project.scripts]
+circumstances = "circumstances.cli:main"
+
+[project.entry-points."circumstances.subjects"]
+toy = "circumstances.adapters.toy:ToySubjectPlugin"
+openai-compatible = "circumstances.adapters.openai_compatible:OpenAICompatibleSubjectPlugin"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/circumstances"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "RUF"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+packages = ["circumstances"]
+

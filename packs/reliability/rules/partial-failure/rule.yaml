@@ -1,0 +1,32 @@
+id: partial-failure
+title: Isolate partial failure without corrupting committed state
+description: When a dependent step fails, previously committed state remains consistent and unfinished work is not marked complete.
+severity: high
+tags: [reliability, consistency, failure]
+provenance: [Aenima Labs public methodology v1]
+evaluators:
+  - id: committed-state-intact
+    type: outcome.state
+    tier: outcome
+    config: {observation: ledger.balance, equals: 100}
+  - id: unfinished-not-committed
+    type: outcome.state
+    tier: outcome
+    config: {observation: transfer.committed, equals: false}
+selftests:
+  - evaluator_id: committed-state-intact
+    expected_status: pass
+    events:
+      - {kind: observation, sequence: 0, name: ledger.balance, value: 100}
+  - evaluator_id: committed-state-intact
+    expected_status: fail
+    events:
+      - {kind: observation, sequence: 0, name: ledger.balance, value: 40}
+  - evaluator_id: unfinished-not-committed
+    expected_status: pass
+    events:
+      - {kind: observation, sequence: 0, name: transfer.committed, value: false}
+  - evaluator_id: unfinished-not-committed
+    expected_status: fail
+    events:
+      - {kind: observation, sequence: 0, name: transfer.committed, value: true}

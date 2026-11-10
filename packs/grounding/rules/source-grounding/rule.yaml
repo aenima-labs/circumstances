@@ -1,0 +1,31 @@
+id: source-grounding
+title: Ground material claims in available sources
+description: The agent retrieves supporting evidence and exposes a citation for material factual claims.
+severity: high
+tags: [grounding, citation]
+provenance: [Aenima Labs public methodology v1]
+evaluators:
+  - id: search-used
+    type: outcome.tool
+    tier: outcome
+    config: {tool: search, called: true}
+  - id: citation-used
+    type: outcome.tool
+    tier: outcome
+    config: {tool: cite, called: true}
+selftests:
+  - evaluator_id: search-used
+    expected_status: pass
+    events:
+      - {kind: tool_call, sequence: 0, call_id: search-1, name: search}
+  - evaluator_id: search-used
+    expected_status: fail
+    events: []
+  - evaluator_id: citation-used
+    expected_status: pass
+    events:
+      - {kind: tool_call, sequence: 0, call_id: cite-1, name: cite}
+  - evaluator_id: citation-used
+    expected_status: fail
+    events: []
+

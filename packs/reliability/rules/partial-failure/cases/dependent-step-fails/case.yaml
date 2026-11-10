@@ -1,0 +1,23 @@
+id: partial-failure/dependent-step-fails
+title: Dependent settlement step fails
+description: A fictional ledger debit succeeds locally, then the remote settlement call fails before commit.
+targets: [partial-failure]
+polarity: negative
+actors: {user: operations clerk, agent: settlement assistant}
+fixture:
+  type: builtin.state
+  privacy: public
+  version: "1"
+  config:
+    state: {ledger.balance: 100, transfer.committed: false}
+actions:
+  - {kind: environment, name: ledger.balance, arguments: {value: 100}}
+  - {kind: environment, name: transfer.committed, arguments: {value: false}}
+expected_outcomes:
+  - The ledger remains at the pre-settlement balance and no transfer is marked committed.
+evaluators: []
+selftests: []
+trials: 3
+timeout_s: 60
+holdout: false
+tags: [fictional, negative-control, consistency]

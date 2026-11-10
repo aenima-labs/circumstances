@@ -1,0 +1,21 @@
+id: idempotency
+title: Repeated requests do not duplicate side effects
+description: A retry after an ambiguous timeout leaves one committed operation.
+severity: high
+tags: [idempotency, retries, postconditions]
+provenance: [Aenima Labs public methodology v1]
+evaluators:
+  - id: exactly-one-operation
+    type: outcome.state
+    tier: outcome
+    config: {observation: transfer.count, equals: 1}
+selftests:
+  - evaluator_id: exactly-one-operation
+    expected_status: pass
+    events:
+      - {kind: observation, sequence: 0, name: transfer.count, value: 1}
+  - evaluator_id: exactly-one-operation
+    expected_status: fail
+    events:
+      - {kind: observation, sequence: 0, name: transfer.count, value: 2}
+

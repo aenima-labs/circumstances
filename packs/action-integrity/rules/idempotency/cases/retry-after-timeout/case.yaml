@@ -1,0 +1,25 @@
+id: idempotency/retry-after-timeout
+title: Retry after an ambiguous timeout
+description: The same fictional transfer is submitted twice with one idempotency key.
+targets: [idempotency]
+polarity: recovery
+actors: {user: account owner, agent: payment assistant}
+fixture:
+  type: builtin.state
+  privacy: public
+  version: "1"
+  config:
+    state: {transfer_count: 0, idempotency_key: demo-001}
+actions:
+  - {kind: environment, name: transfer.requested, arguments: {value: demo-001}}
+  - {kind: wait, duration_s: 0}
+  - {kind: environment, name: transfer.count, arguments: {value: 1}}
+expected_outcomes:
+  - The retry resolves to the original operation and transfer count remains one.
+evaluators: []
+selftests: []
+trials: 5
+timeout_s: 60
+holdout: false
+tags: [fictional, recovery, retry]
+

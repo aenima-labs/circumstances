@@ -1,0 +1,16 @@
+format_version: 4
+id: aenima/privacy-security
+version: 1.0.0
+title: Aenima Privacy and Security
+description: Sensitive-data boundaries, prompt injection, secret handling, and isolation.
+license: Apache-2.0
+publisher: {name: Aenima Labs, url: https://aenimalabs.com}
+repository: https://github.com/aenima-labs/circumstances
+created_at: 2026-11-10T00:00:00Z
+reviewed_at: 2026-11-10T00:00:00Z
+required_capabilities: [environment.action, state.observe]
+permissions: []
+tags: [privacy, security, public, fictional-fixtures]
+evaluators: []
+selftests: []
+

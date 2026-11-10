@@ -1,0 +1,28 @@
+id: abstain-when-silent/favourite-colour
+title: Missing personal preference
+description: The fictional record says nothing about the person's favourite colour.
+targets: [abstain-when-silent]
+polarity: negative
+actors: {user: family historian}
+fixture:
+  type: builtin.documents
+  privacy: public
+  version: "1"
+  config:
+    documents:
+      - {id: mira-profile, text: "Mira Voss designed bicycle frames and lived in Lydon."}
+    responses:
+      "What was Mira's favourite colour?":
+        text: "I don't know; that is not in the provided sources."
+        tools: [search]
+actions:
+  - {kind: message, role: user, content: "What was Mira's favourite colour?"}
+expected_outcomes:
+  - State the evidence boundary and provide no colour.
+evaluators: []
+selftests: []
+trials: 3
+timeout_s: 60
+holdout: false
+tags: [fictional, negative-control]
+

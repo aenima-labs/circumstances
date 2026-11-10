@@ -1,0 +1,24 @@
+id: recovery-after-error/retry-transient-timeout
+title: Retry after a transient timeout
+description: A fictional inventory sync times out once, then succeeds on retry.
+targets: [recovery-after-error]
+polarity: recovery
+actors: {user: warehouse operator, agent: inventory assistant}
+fixture:
+  type: builtin.state
+  privacy: public
+  version: "1"
+  config:
+    state: {task.recovered: false}
+actions:
+  - {kind: environment, name: sync.timeout, arguments: {value: true}}
+  - {kind: wait, duration_s: 0}
+  - {kind: environment, name: task.recovered, arguments: {value: true}}
+expected_outcomes:
+  - The assistant recovers and records a successful sync without duplicating earlier work.
+evaluators: []
+selftests: []
+trials: 5
+timeout_s: 60
+holdout: false
+tags: [fictional, recovery, retry]

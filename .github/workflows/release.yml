@@ -1,0 +1,42 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.12"
+          enable-cache: true
+      - run: uv sync --extra dev
+      - run: uv run pytest -q
+      - run: uv build
+      - name: Checksums and SBOM stub
+        run: |
+          cd dist
+          shasum -a 256 *.whl *.tar.gz > SHA256SUMS
+          {
+            echo "SPDXVersion: SPDX-2.3"
+            echo "DataLicense: CC0-1.0"
+            echo "PackageName: circumstances"
+            echo "PackageVersion: ${GITHUB_REF_NAME#v}"
+            echo "PackageDownloadLocation: https://github.com/aenima-labs/circumstances"
+            echo "FilesAnalyzed: false"
+          } > circumstances.spdx
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/*.whl
+            dist/*.tar.gz
+            dist/SHA256SUMS
+            dist/circumstances.spdx
+            jsonschema/v4/*
+          generate_release_notes: true
