@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block body_class %}is-legal{% endblock %}
+{% block main %}
+<article class="legal">
+	<a class="legal-back" href="{{ base }}">← Circumstances</a>
+	<h1>Privacy and cookies</h1>
+	<p class="legal-date">Last updated 11 November 2026</p>
+
+	<h2>In short</h2>
+	<p>This site uses Google Analytics only if you say yes. Nothing is used for advertising, and nothing tracks you across other sites. You can change your answer at any time with <a href="#" data-cookie-settings>Cookie settings</a>.</p>
+
+	<h2>Who is responsible</h2>
+	<p><strong>{{ site.organization.name }}</strong>, Lisbon and Copenhagen. Write to <a href="mailto:{{ site.organization.email }}">{{ site.organization.email }}</a> about anything on this page.</p>
+	<p>This page covers the Circumstances website only. The Circumstances software runs on your own machines; it sends no telemetry and does not report anything to us.</p>
+
+	<h2>Analytics, if you accept</h2>
+	<p>We use Google Analytics 4, loaded through Google Tag Manager, to count visits and see which pages are read. Google Ireland Limited processes the data for us under its data processing terms.</p>
+	<ul>
+		<li><strong>What is collected:</strong> pages viewed, how you arrived (for example a search or a link), browser and device type, and an approximate location (country and city). Google Analytics 4 does not log or store IP addresses for visitors in the EU.</li>
+		<li><strong>Cookies:</strong> <code>_ga</code> and <code>_ga_*</code>, set on this domain to tell one visit from the next. They are only set after you accept, and are deleted when you decline.</li>
+		<li><strong>Kept for:</strong> 14 months, then deleted by Google Analytics.</li>
+		<li><strong>Not used:</strong> advertising features, Google signals, remarketing, or sharing with other Google products.</li>
+		<li><strong>Legal basis:</strong> your consent (Article 6(1)(a) GDPR). Withdrawing it does not affect what was collected before.</li>
+	</ul>
+	<p>If you decline, Google Tag Manager still loads, but Consent Mode keeps Google Analytics from loading or setting cookies.</p>
+
+	<h2>What happens anyway</h2>
+	<ul>
+		<li><strong>Your choice</strong> is remembered in your browser's local storage (<code>consent</code>) for 12 months, so we don't ask on every page. It is not a cookie and is never sent to us.</li>
+		<li><strong>Search</strong> runs entirely in your browser. The site downloads a search index once; what you type is never sent anywhere.</li>
+		<li><strong>Hosting:</strong> the site is served by GitHub Pages. Like any web server, GitHub sees your IP address when it delivers the page, and may log it for security.</li>
+		<li><strong>Fonts:</strong> the typefaces are served from this site itself, so showing a page sends nothing to Google Fonts.</li>
+		<li><strong>Links to GitHub:</strong> source, issues, and releases live on github.com, which has its own privacy statement.</li>
+		<li><strong>Email:</strong> if you write to us, we use your message and address only to reply.</li>
+	</ul>
+
+	<h2>Your rights</h2>
+	<p>You may ask to see, correct or delete personal data we hold about you, or object to its use. Write to the address above. You may also complain to a data protection authority; ours is the Comissão Nacional de Proteção de Dados (CNPD) in Portugal.</p>
+</article>
+{% endblock %}

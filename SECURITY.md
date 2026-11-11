@@ -16,4 +16,4 @@ artifact sealing, subject adapters, or hosted provider integrations.
   credentials and short-lived run-scoped capabilities.
 - Smoke/regex checks are not safety certification.
 
-More detail: [docs/security.md](docs/security.md).
+More detail: [docs/background/security.md](docs/background/security.md).

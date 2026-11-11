@@ -72,20 +72,41 @@ process environment, or declare unrestricted network destinations.
 Smoke checks are useful for fast feedback. They do not establish that an agent
 is safe, grounded, private, fair, or compliant.
 
-## Architecture and trust
+## Documentation
 
-- [Architecture](docs/architecture.md)
-- [Evaluation landscape](docs/landscape.md)
-- [Security model](docs/security.md)
-- [Evaluation methodology](docs/evaluation-methodology.md)
-- [AI Risk coverage programme](docs/ai-risk-coverage.md)
-- [Migration from Gears](docs/migration-from-gears.md)
-- [Public/private content inventory](docs/content-inventory.md)
-- [Public packs](packs/README.md)
+Full documentation lives in [`docs/`](docs/README.md) and is published, with
+search, at **[circumstances.aenimalabs.com](https://circumstances.aenimalabs.com/)**.
 
-Kodama is a private first-party consumer. Its adapter, KDL, fixtures, and cases
-remain in the Kodama repository and use Circumstances solely through public
-contracts.
+- Getting started: [Installation](docs/getting-started/installation.md) ·
+  [Quickstart](docs/getting-started/quickstart.md) ·
+  [Core concepts](docs/getting-started/concepts.md)
+- Guides: [Write a pack](docs/guides/writing-a-pack.md) ·
+  [Connect your agent](docs/guides/connecting-your-agent.md) ·
+  [Run packs and read results](docs/guides/running-packs.md) ·
+  [Compare and regrade runs](docs/guides/comparing-and-regrading.md) ·
+  [Share and install packs](docs/guides/installing-packs.md) ·
+  [Write an evaluator](docs/guides/custom-evaluators.md)
+- Reference: [Command line](docs/reference/cli.md) ·
+  [Pack format v4](docs/reference/pack-format.md) ·
+  [Actions and events](docs/reference/actions-and-events.md) ·
+  [Built-in evaluators](docs/reference/evaluators.md) ·
+  [Run bundles](docs/reference/run-bundles.md) ·
+  [Configuration](docs/reference/configuration.md) ·
+  [Provider API](docs/reference/provider-api.md) ·
+  [Public packs](packs/README.md)
+- Background: [Evaluation methodology](docs/background/methodology.md) ·
+  [Security model](docs/background/security.md) ·
+  [Architecture](docs/background/architecture.md) ·
+  [Evaluation landscape](docs/background/landscape.md) ·
+  [AI Risk coverage programme](docs/background/ai-risk-coverage.md)
+- Project: [Contributing](CONTRIBUTING.md) · [Governance](GOVERNANCE.md) ·
+  [History](docs/project/history.md)
+
+The website itself is built from this repository; see [`site/`](site/README.md).
+
+Products that use Circumstances, including Ænima Labs' own, keep their subject
+plugins, fixtures, and cases in their own repositories and use Circumstances
+only through its public contracts.
 
 ## Status
 

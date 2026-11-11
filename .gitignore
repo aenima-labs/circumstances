@@ -11,3 +11,4 @@ results/
 .coverage
 htmlcov/
 .python-version
+_site/

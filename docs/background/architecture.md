@@ -27,8 +27,8 @@ The `aenima-labs/circumstances` repository contains:
 - `jsonschema`: generated pack and run schemas.
 - `docs`: trust model, pack authoring, adapter authoring, and methodology.
 
-It contains no Kodama source, donor fixtures, KDL rules, private endpoints,
-cloud project names, or credentials.
+It contains no private product source, personal data, proprietary rule text,
+private endpoints, cloud project names, or credentials.
 
 ## Plugin boundary
 
@@ -44,8 +44,9 @@ Fixtures are namespaced data passed to the selected subject plugin. Core treats
 their configuration as opaque JSON. Evaluators use the same registry model and
 return evidence references into immutable trajectory events.
 
-Kodama owns its private plugin and fixture provider. It installs a released
-Circumstances distribution and implements only these public contracts.
+A product that keeps its subject private ships its own plugin and fixture
+provider. It installs a released Circumstances distribution and implements only
+these public contracts.
 
 ## Run lifecycle
 
@@ -63,9 +64,10 @@ Circumstances distribution and implements only these public contracts.
 
 ## Compatibility
 
-Pack format v4 is the public contract. A migration loader accepts private Gears
-schema-v3 packs during the Kodama cutover. Legacy `GEARS_*` variables are a
-temporary integration shim and are not part of the public Circumstances API.
+Pack format v4 is the public contract. `migrate-pack` converts packs from
+Gears, the private harness Circumstances replaced (see
+[History](../project/history.md)); Gears formats and variables are not part of
+the public API.
 
 Framework API, pack format, and individual packs follow independent semantic
 versioning. Comparisons are valid only when their run locks declare compatible

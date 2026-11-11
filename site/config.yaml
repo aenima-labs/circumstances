@@ -1,0 +1,67 @@
+# Website configuration. Read by site/build.py.
+
+title: Circumstances
+tagline: Test agents under the circumstances.
+description: >-
+  Circumstances is an open-source framework for testing complete AI agent
+  systems—model, harness, tools, memory, and environment—inside versioned,
+  multi-step situations, with sealed evidence anyone can verify.
+
+# Public address of the site. SITE_URL in the environment overrides it, and
+# `build.py --base /` builds for local preview.
+url: https://circumstances.aenimalabs.com/
+
+repository: https://github.com/aenima-labs/circumstances
+branch: main
+
+# Google Tag Manager container. GA4 runs only after the visitor accepts
+# analytics (see static/consent.js and the privacy page).
+gtm_id: GTM-M5B4M4R4
+
+organization:
+  name: Ænima Labs
+  url: https://aenimalabs.com/
+  email: hello@aenimalabs.com
+
+# Repository files that render as pages. Every Markdown file under docs/ must
+# appear here; the build fails otherwise, so nothing is published by accident
+# or left unreachable.
+nav:
+  - section: Getting started
+    pages:
+      - {src: docs/README.md, title: Overview}
+      - docs/getting-started/installation.md
+      - docs/getting-started/quickstart.md
+      - docs/getting-started/concepts.md
+  - section: Guides
+    pages:
+      - docs/guides/writing-a-pack.md
+      - docs/guides/connecting-your-agent.md
+      - docs/guides/running-packs.md
+      - docs/guides/comparing-and-regrading.md
+      - docs/guides/installing-packs.md
+      - docs/guides/custom-evaluators.md
+  - section: Reference
+    pages:
+      - docs/reference/cli.md
+      - docs/reference/pack-format.md
+      - docs/reference/actions-and-events.md
+      - docs/reference/evaluators.md
+      - docs/reference/run-bundles.md
+      - docs/reference/configuration.md
+      - docs/reference/provider-api.md
+      - {src: packs/README.md, title: Public packs, url: packs/}
+  - section: Background
+    pages:
+      - docs/background/methodology.md
+      - docs/background/security.md
+      - docs/background/architecture.md
+      - docs/background/landscape.md
+      - docs/background/ai-risk-coverage.md
+  - section: Project
+    pages:
+      - {src: CONTRIBUTING.md, url: docs/project/contributing/}
+      - {src: GOVERNANCE.md, url: docs/project/governance/}
+      - {src: SECURITY.md, title: Security policy, url: docs/project/security-policy/}
+      - {src: CODE_OF_CONDUCT.md, url: docs/project/code-of-conduct/}
+      - docs/project/history.md
