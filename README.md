@@ -20,13 +20,17 @@ product concepts into the framework.
 - Self-contained, hash-sealed artifacts that can be regraded after live trial
   cleanup.
 - General Aenima Labs packs built on fictional, independently licensed data.
+- A pack-and-run command line, including templates, a digest-pinned pack index,
+  and a read-only local viewer. See the
+  [evaluation landscape](docs/landscape.md).
 
 ## Five-minute quickstart
 
 ```bash
 uv sync --extra dev
-uv run circumstances lint-pack packs/grounding
+uv run circumstances pack lint packs/grounding
 uv run circumstances run packs/grounding --subject toy
+uv run circumstances view
 ```
 
 The toy subject is deterministic and requires no model key or private service.
@@ -71,6 +75,7 @@ is safe, grounded, private, fair, or compliant.
 ## Architecture and trust
 
 - [Architecture](docs/architecture.md)
+- [Evaluation landscape](docs/landscape.md)
 - [Security model](docs/security.md)
 - [Evaluation methodology](docs/evaluation-methodology.md)
 - [AI Risk coverage programme](docs/ai-risk-coverage.md)

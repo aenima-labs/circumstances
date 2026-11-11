@@ -29,6 +29,10 @@ secrets, or undeclared network destinations.
 ## Validation
 
 ```bash
-uv run circumstances lint-pack path/to/pack
+uv run circumstances pack init path/to/pack
+uv run circumstances pack lint path/to/pack
 uv run circumstances run path/to/pack --subject toy
 ```
+
+`pack init` writes a format-v4 skeleton. `pack add rule` and `pack add case`
+add further rules and cases. `lint-pack` remains an alias of `pack lint`.

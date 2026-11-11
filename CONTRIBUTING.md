@@ -10,7 +10,7 @@ uv sync --extra dev
 uv run ruff check .
 uv run mypy
 uv run pytest -q
-uv run circumstances lint-pack packs/grounding
+uv run circumstances pack lint packs/grounding
 uv run circumstances run packs/grounding --subject toy
 ```
 

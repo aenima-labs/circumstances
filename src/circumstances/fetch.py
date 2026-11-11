@@ -146,6 +146,38 @@ def _resolve_archive(
     return ResolvedPack(cache_dir / "pack", url, digest, None, trust)
 
 
+def split_git_fragment(url: str) -> tuple[str, str, str | None]:
+    """Split a git URL into repository, ref, and optional pack subpath.
+
+    ``#ref=<rev>`` remains valid. ``#ref=<rev>&path=<relative>`` selects one
+    pack inside a repository that contains several.
+    """
+    repository, separator, fragment = url.partition("#")
+    if not separator:
+        return repository, "HEAD", None
+    ref = "HEAD"
+    subpath: str | None = None
+    if not fragment.startswith("ref=") and "path=" not in fragment:
+        raise PackError("git fragment must set ref= and may set path=")
+    for part in fragment.split("&"):
+        if not part:
+            continue
+        key, eq, value = part.partition("=")
+        if not eq:
+            raise PackError(f"invalid git fragment: {fragment}")
+        if key == "ref":
+            ref = value or "HEAD"
+        elif key == "path":
+            subpath = value
+        else:
+            raise PackError(f"unsupported git fragment key: {key}")
+    if subpath is not None:
+        pure = PurePosixPath(subpath)
+        if not subpath or pure.is_absolute() or ".." in pure.parts or "\\" in subpath:
+            raise PackError(f"git pack path escapes checkout: {subpath}")
+    return repository, ref, subpath
+
+
 def _resolve_git(
     url: str,
     *,
@@ -154,13 +186,14 @@ def _resolve_git(
     refresh: bool,
     policy: ResolverPolicy,
 ) -> ResolvedPack:
-    repository, separator, requested_ref = url.partition("#ref=")
-    ref = requested_ref if separator else "HEAD"
+    repository, ref, subpath = split_git_fragment(url)
     parsed = urlparse(repository)
     if parsed.scheme != "https":
         raise PackError("git pack sources require git+https")
     _validate_public_host(parsed.hostname or "", policy)
     source = f"git+{repository}#ref={ref}"
+    if subpath:
+        source += f"&path={subpath}"
     cache_dir = policy.cache_root / hashlib.sha256(source.encode()).hexdigest()
     metadata = cache_dir / "resolved.json"
     if not refresh and metadata.is_file():
@@ -178,11 +211,7 @@ def _resolve_git(
     policy.cache_root.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(dir=policy.cache_root) as temporary:
         checkout = Path(temporary) / "checkout"
-        command = ["git", "clone", "--depth", "1"]
-        if ref != "HEAD":
-            command.extend(["--branch", ref])
-        command.extend(["--", repository, str(checkout)])
-        subprocess.run(command, check=True, capture_output=True, text=True)
+        _clone_git(repository, ref, checkout)
         revision = subprocess.run(
             ["git", "rev-parse", "HEAD"],
             cwd=checkout,
@@ -190,7 +219,9 @@ def _resolve_git(
             capture_output=True,
             text=True,
         ).stdout.strip()
-        pack_root = _find_pack_root(checkout)
+        if _is_commit(ref) and revision != ref:
+            raise PackError(f"git revision mismatch: expected {ref}, got {revision}")
+        pack_root = _find_pack_root(checkout, subpath)
         digest = hash_directory(pack_root)
         _check_digest(digest, expected_digest)
         cache_dir.mkdir()
@@ -203,6 +234,43 @@ def _resolve_git(
             + "\n"
         )
     return ResolvedPack(cache_dir / "pack", source, digest, revision, trust)
+
+
+def _is_commit(ref: str) -> bool:
+    return len(ref) == 40 and all(character in "0123456789abcdef" for character in ref)
+
+
+def _clone_git(repository: str, ref: str, checkout: Path) -> None:
+    """Clone a branch, tag, or full commit into ``checkout``.
+
+    ``git clone --branch`` does not accept a commit id, so a 40-character
+    revision is fetched explicitly and checked out detached.
+    """
+    if _is_commit(ref):
+        _git(["init", str(checkout)])
+        _git(["remote", "add", "origin", repository], cwd=checkout)
+        _git(["fetch", "--depth", "1", "origin", ref], cwd=checkout)
+        _git(["checkout", "--detach", "FETCH_HEAD"], cwd=checkout)
+        return
+    command = ["clone", "--depth", "1"]
+    if ref != "HEAD":
+        command.extend(["--branch", ref])
+    command.extend(["--", repository, str(checkout)])
+    _git(command)
+
+
+def _git(command: list[str], cwd: Path | None = None) -> None:
+    try:
+        subprocess.run(
+            ["git", *command],
+            cwd=cwd,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+    except subprocess.CalledProcessError as exc:
+        detail = (exc.stderr or exc.stdout or "").strip()
+        raise PackError(f"git {' '.join(command)} failed: {detail}") from exc
 
 
 def _download(url: str, *, headers: dict[str, str], policy: ResolverPolicy) -> bytes:
@@ -296,7 +364,12 @@ def _archive_target(destination: Path, name: str) -> Path:
     return target
 
 
-def _find_pack_root(root: Path) -> Path:
+def _find_pack_root(root: Path, subpath: str | None = None) -> Path:
+    if subpath is not None:
+        selected = confined_path(root, subpath)
+        if not selected.is_dir() or not (selected / "pack.yaml").is_file():
+            raise PackError(f"git pack path is not a pack: {subpath}")
+        return selected
     direct = root / "pack.yaml"
     if direct.is_file():
         return root

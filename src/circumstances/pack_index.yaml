@@ -1,0 +1,25 @@
+format_version: 1
+revision: 8fa1ff808135b2c598828040a0a8b0eb17a8dad0
+repository: https://github.com/aenima-labs/circumstances.git
+packs:
+  - name: aenima/action-integrity
+    path: packs/action-integrity
+    digest: 93755ab8af4a2299e5b0622d687d515fb89eac309a1be61163e8af991a1bd492
+  - name: aenima/ai-risk
+    path: packs/ai-risk
+    digest: 12aa1a2649a5af3910178b667bd5f0aee926a29ec1018496f93eb6f78e6031b4
+  - name: aenima/grounding
+    path: packs/grounding
+    digest: b9c8d9f1e9564da0644342bb7aef05ff65fab7c7c83988fa79747d7670ccca5f
+  - name: aenima/human-agency
+    path: packs/human-agency
+    digest: e7a7009049f34993f7532b908151f3d05c47ec0002ebf027f16023a4389dc13d
+  - name: aenima/privacy-security
+    path: packs/privacy-security
+    digest: 5ff8c6ed7755b37d012cfdd0e49452d83a22104a1757baa047e1389433a46537
+  - name: aenima/reliability
+    path: packs/reliability
+    digest: c02e09fe8973356376591d76b7d1406266985111b911693df2c1818a6957ca9f
+  - name: aenima/transparency
+    path: packs/transparency
+    digest: 18785d90e114b332825e9eeac0ae6cf3d1db84df6de033d19a82d9528f3f5b5c
