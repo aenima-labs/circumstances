@@ -7,8 +7,7 @@
 
 This note records what the 2026 agent-evaluation field actually does, where
 Circumstances is different on purpose, and the two adoption surfaces that were
-missing: a pack-and-run command line, and a local results viewer. The Kodama
-platform remains the operator dashboard for Kodama. It is not the open-source UI.
+missing: a pack-and-run command line, and a local results viewer.
 
 ## Four jobs, not one market
 
@@ -64,8 +63,7 @@ is the product, and the tests are code or rows in that vendor's account.
 A portable situation: rules, cases, fixtures, actions, and evidence
 requirements, graded on a sealed trajectory of a named subject. The subject is
 the whole system under test (model, harness, tools, memory, environment), not a
-bare model name. Packs are untrusted data. Kodama is a private consumer and is
-not imported by this repository.
+bare model name. Packs are untrusted data.
 
 ## Feature matrix
 
@@ -81,7 +79,7 @@ Read on 11 November 2026 from the docs linked above.
 | Pack / dataset CLI | `pack init`, `add`, `list`, `lint` | `list`, task imports | `datasets list`, `run -d` | `init`, `redteam plugins` | probes shipped in the install | dataset upload / list |
 | Run CLI | `run`, `run list`, `show`, `compare`, `score` | `eval`, `eval-retry`, `log` | `run`, `view`, `upload` | `eval`, `view` | `garak`, `pyrit_scan` | `experiment list`, `bt eval` |
 | Local viewer | `circumstances view` over sealed bundles | `inspect view` | `harbor view jobs` | `promptfoo view` | CoPyRIT for PyRIT | `deepeval inspect`; `view` opens the cloud |
-| Hosted dashboard | Kodama platform, for the Kodama subject only | not required | Harbor Hub | Promptfoo cloud / share | not the product | the product |
+| Hosted dashboard | none; `view` is local | not required | Harbor Hub | Promptfoo cloud / share | not the product | the product |
 | Third-party install | pinned index, `git+https` or HTTPS archive; untrusted refs need a digest | tasks in the library, plus Harbor datasets | `org/name@version` from the hub | plugins in the package | probes in the package | upload into the vendor account |
 
 ## Advantages worth keeping
@@ -96,7 +94,7 @@ These are the reasons not to switch frameworks and not to clone one.
 - **The subject is the system, not the model.** A comparison is valid only when
   the run locks agree on pack digest, fixture digests, subject id and version,
   evaluator versions, and model identities. See
-  [Evaluation methodology](evaluation-methodology.md). Harbor and Inspect
+  [Evaluation methodology](methodology.md). Harbor and Inspect
   disclose a harness and then score task success. Circumstances is for rules
   whose violation is a path through memory, tools, and policy.
 - **Smoke is not a safety claim.** Exact strings and regular expressions stay
@@ -105,9 +103,10 @@ These are the reasons not to switch frameworks and not to clone one.
   and writes a new grade record beside the bundle. It does not call the subject
   and it does not rewrite sealed trial events. Inspect's `inspect score` is the
   command this copies.
-- **Kodama stays out of the framework.** The platform UI is the right dashboard
-  for presences, settings, and hosted runs. Publishing it as the Circumstances
-  UI would drag presences, OAuth, and the catalog into the open-source contract.
+- **No hosted service in the framework.** A product's own dashboard is the
+  right place for its settings and hosted runs. Building one into Circumstances
+  would drag accounts, OAuth, and a catalog service into the open-source
+  contract.
 
 ## Will not match
 
@@ -199,26 +198,7 @@ circumstances view [results/]
 `view` serves a read-only page on `127.0.0.1`. It lists runs, shows pass/fail
 by rule, trial transcripts, grader reasoning, pass@k, and the same compare
 verdict as the command line. It has no login, no pack editor, and no catalog
-service. It reads `run.json` and the trial records in the bundle. It does not
-embed the Kodama React components.
-
-### 4. Kodama operator readouts
-
-The platform at `platform.kodama.house` already starts a hosted run against a
-presence, polls a live case table, cancels, opens a case readout, and compares
-two runs. That remains the place a Kodama operator starts work.
-
-Two gaps on that screen are filled from data the catalog already stores:
-
-- Compare shows whether the Circumstances run locks were recorded and whether
-  they match. A missing lock is labelled as not recorded. A recorded mismatch
-  is labelled with the fields that differ. The existing refusal when catalog
-  pack or model identity differs stays in place.
-- When a stored summary contains per-trial results, the run view and the
-  compare view show repetitions, pass@k, and pass^k. Summaries without that
-  shape are left unchanged.
-
-No heatmap, SARIF, or share-URL work is part of this cut.
+service. It reads `run.json` and the trial records in the bundle.
 
 ## Limits of this cut
 
@@ -228,9 +208,8 @@ No heatmap, SARIF, or share-URL work is part of this cut.
 - A named index is a supply chain. First-party entries are pinned by revision
   and digest. Every other remote source stays untrusted until the operator
   passes a digest. Circumstances does not phone home for a pack list.
-- The local viewer will drift if it grows a second copy of the platform's case
-  readout. It does not share React components with Kodama. It reads the public
-  bundle fields only.
+- The local viewer will drift if it grows its own copy of the grading logic. It
+  reads the public bundle fields only.
 - A regrade can be mistaken for a new experiment. The new file names the
   evaluator versions and the seal of the bundle it graded. The original trial
   events stay in the sealed directory.

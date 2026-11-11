@@ -1,0 +1,72 @@
+{% extends "doc.html" %}
+{% block after_prose %}
+<section class="catalogue" aria-labelledby="catalogue-title">
+	<h2 id="catalogue-title">Catalogue</h2>
+	<p class="catalogue-lede">{{ stats.packs }} packs, {{ stats.rules }} rules, {{ stats.cases }} cases, generated from the YAML in <a class="ext" href="{{ site.repository }}/tree/{{ site.branch }}/packs"><code>packs/</code></a> at build time.</p>
+	{% for pack in packs %}
+	<article class="pack" id="{{ pack.slug }}">
+		<header class="pack-head">
+			<div>
+				<p class="pack-id"><code>{{ pack.id }}</code> <span>v{{ pack.version }}</span></p>
+				<h3>{{ pack.title }}<a class="anchor" href="#{{ pack.slug }}" aria-label="Link to this pack">#</a></h3>
+				<p class="pack-desc">{{ pack.description }}</p>
+			</div>
+			<dl class="pack-facts">
+				<div><dt>Rules</dt><dd>{{ pack.rules | length }}</dd></div>
+				<div><dt>Cases</dt><dd>{{ pack.case_count }}</dd></div>
+				<div><dt>License</dt><dd>{{ pack.license }}</dd></div>
+			</dl>
+		</header>
+		<p class="pack-meta">
+			<span class="meta-label">Needs</span>
+			{% for cap in pack.required_capabilities %}<code class="chip">{{ cap }}</code>{% endfor %}
+			<span class="meta-label">Evidence</span>
+			{% for tier in pack.tiers %}<span class="tier tier-{{ tier }}">{{ tier }}</span>{% endfor %}
+		</p>
+		<div class="rules">
+			{% for rule in pack.rules %}
+			<details class="rule"{% if loop.first and pack.rules | length < 3 %} open{% endif %}>
+				<summary>
+					<span class="rule-title">{{ rule.title }}</span>
+					<span class="rule-meta"><code>{{ rule.id }}</code><span class="sev sev-{{ rule.severity if rule.severity is string else 'medium' }}">{{ rule.severity if rule.severity is string else rule.severity | join(', ') }}</span><span class="count">{{ rule.cases | length }} case{{ 's' if rule.cases | length != 1 else '' }}</span></span>
+				</summary>
+				<p class="rule-desc">{{ rule.description }}</p>
+				{% if rule.get('evaluators') %}
+				<p class="rule-evals">
+					{% for e in rule.evaluators %}<span class="eval"><span class="tier tier-{{ e.tier }}">{{ e.tier }}</span><code>{{ e.type }}</code> {{ e.id }}</span>{% endfor %}
+				</p>
+				{% endif %}
+				<ul class="cases">
+					{% for case in rule.cases %}
+					<li>
+						<span class="polarity pol-{{ case.polarity }}">{{ case.polarity }}</span>
+						<div>
+							<a class="case-title ext" href="{{ site.repository }}/blob/{{ site.branch }}/{{ case.path }}">{{ case.title }}</a>
+							{% if case.get('description') %}<p>{{ case.description }}</p>{% endif %}
+							<p class="case-meta"><code>{{ case.id }}</code> · {{ case.get('trials', 1) }} trial{{ 's' if case.get('trials', 1) != 1 else '' }} · {{ case.actions | length }} action{{ 's' if case.actions | length != 1 else '' }}</p>
+						</div>
+					</li>
+					{% endfor %}
+				</ul>
+			</details>
+			{% endfor %}
+		</div>
+		<p class="pack-run"><code>circumstances run {{ pack.path }} --subject &lt;id&gt;</code></p>
+	</article>
+	{% endfor %}
+</section>
+{% endblock %}
+{% block toc %}
+<aside class="toc" aria-label="On this page">
+	<p class="toc-head">On this page</p>
+	<ul>
+		{% for level, anchor, text in page.toc %}
+		<li class="toc-{{ level }}"><a href="#{{ anchor }}">{{ text }}</a></li>
+		{% endfor %}
+		<li class="toc-2"><a href="#catalogue-title">Catalogue</a></li>
+		{% for pack in packs %}
+		<li class="toc-3"><a href="#{{ pack.slug }}">{{ pack.title | replace('Aenima ', '') }}</a></li>
+		{% endfor %}
+	</ul>
+</aside>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block body_class %}is-docs{% endblock %}
+{% block main %}
+<div class="docs">
+	<button class="sidebar-toggle" type="button" aria-expanded="false" aria-controls="sidebar">
+		<span>{{ page.section }}</span> <span aria-hidden="true">/</span> <strong>{{ page.title }}</strong>
+	</button>
+	<aside class="sidebar" id="sidebar" aria-label="Documentation">
+		<nav>
+			{% for group in nav %}
+			<p class="sidebar-head">{{ group.section }}</p>
+			<ul>
+				{% for item in group.pages %}
+				<li><a href="{{ base }}{{ item.url }}"{% if item.url == page.url %} aria-current="page"{% endif %}>{{ item.title }}</a></li>
+				{% endfor %}
+			</ul>
+			{% endfor %}
+		</nav>
+	</aside>
+
+	<article class="doc">
+		<p class="doc-section">{{ page.section }}</p>
+		<h1>{{ page.title }}</h1>
+		<div class="prose">
+			{{ page.body | safe }}
+		</div>
+		{% block after_prose %}{% endblock %}
+		<nav class="pager" aria-label="Previous and next">
+			{% if prev_page %}<a class="pager-prev" href="{{ base }}{{ prev_page.url }}"><span>Previous</span>{{ prev_page.title }}</a>{% else %}<span></span>{% endif %}
+			{% if next_page %}<a class="pager-next" href="{{ base }}{{ next_page.url }}"><span>Next</span>{{ next_page.title }}</a>{% endif %}
+		</nav>
+		<p class="doc-meta"><a href="{{ edit_url }}">Edit this page on GitHub</a> · Source: <code>{{ page.src }}</code></p>
+	</article>
+
+	{% block toc %}
+	{% if page.toc %}
+	<aside class="toc" aria-label="On this page">
+		<p class="toc-head">On this page</p>
+		<ul>
+			{% for level, anchor, text in page.toc %}
+			<li class="toc-{{ level }}"><a href="#{{ anchor }}">{{ text }}</a></li>
+			{% endfor %}
+		</ul>
+	</aside>
+	{% endif %}
+	{% endblock %}
+</div>
+{% endblock %}

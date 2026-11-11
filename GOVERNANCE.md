@@ -13,8 +13,8 @@ Circumstances is maintained by Aenima Labs.
 
 - Framework contracts and security-sensitive fetch/artifact code require
   maintainer review.
-- Public pack publication requires provenance, privacy, and license checks
-  described in `docs/content-inventory.md`.
+- Public pack publication requires the provenance, privacy, and license checks
+  in [`CONTRIBUTING.md`](CONTRIBUTING.md#publishing-pack-content).
 - Dual-use or mass-harm situations remain non-operational in public packs.
 
 ## Releases
