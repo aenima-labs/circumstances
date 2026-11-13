@@ -2,6 +2,16 @@
 
 Circumstances is maintained by Aenima Labs.
 
+## Decisions
+
+- Maintainers keep the [roadmap](docs/project/roadmap.md) and revise it in the
+  open, through pull requests.
+- Changes to public contracts (pack format, run bundles, provider API, plugin
+  interfaces) need an RFC under `docs/project/rfcs/`. An RFC is accepted when a
+  maintainer approves it after at least a week open for comment.
+- Contributors with a record of sustained, careful work may be invited to
+  become maintainers.
+
 ## Compatibility
 
 - Pack format `v4` is the initial public format.

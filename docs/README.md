@@ -68,6 +68,8 @@ Why Circumstances is shaped the way it is.
 - [Governance](../GOVERNANCE.md)
 - [Security policy](../SECURITY.md)
 - [Code of conduct](../CODE_OF_CONDUCT.md)
+- [Roadmap](project/roadmap.md)
+- [RFC 1: Adaptive campaigns](project/rfcs/0001-adaptive-campaigns.md)
 - [History](project/history.md)
 
 ## Conventions in these pages

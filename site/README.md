@@ -21,6 +21,7 @@ hand, so the repository and the site cannot drift apart.
 | `static/consent.js` | The cookie banner shared with aenimalabs.com and kodama.house |
 | `static/fonts/` | Self-hosted Space Grotesk, DM Sans, and Playfair Display (SIL Open Font License) |
 | `og.svg`, `og.py` | Source and renderer for `static/og.png`, the 1200×630 link preview |
+| `banner.py` | Renders the README banners in `.github/assets/` (light and dark) |
 
 ## Preview
 

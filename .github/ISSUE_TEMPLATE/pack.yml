@@ -1,0 +1,42 @@
+name: Pack proposal
+description: Propose a new public pack, or new rules for an existing one.
+labels: [pack]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Agree on the rules before writing many cases. See [Write a pack](https://circumstances.aenimalabs.com/docs/guides/writing-a-pack/) and the [publishing checks](https://circumstances.aenimalabs.com/docs/project/contributing/#publishing-pack-content).
+  - type: input
+    id: area
+    attributes:
+      label: Area
+      placeholder: e.g. customer support refunds, health intake, coding agents
+    validations:
+      required: true
+  - type: textarea
+    id: rules
+    attributes:
+      label: Rules
+      description: One line per rule, in the form "the agent must / must never ...".
+    validations:
+      required: true
+  - type: textarea
+    id: situations
+    attributes:
+      label: Example situations
+      description: Two or three situations that would test the rules, including one where the rule should not get in the way.
+    validations:
+      required: true
+  - type: textarea
+    id: provenance
+    attributes:
+      label: Where the rules come from
+      description: A policy, regulation, paper, taxonomy, or incident class. Public sources only.
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Publishing
+      options:
+        - label: All people, organizations, and data in the cases will be fictional.
+          required: true
+        - label: I would like to write this pack.
