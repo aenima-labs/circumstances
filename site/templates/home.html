@@ -311,6 +311,50 @@ uv run circumstances pack init my-pack --id me/first</code></pre></div>
 	</div>
 </section>
 
+<!-- ─── Join ─── -->
+<section class="band" aria-labelledby="join-title">
+	<div class="wrap">
+		<div class="section-head section-head-row">
+			<div>
+				<p class="kicker">Open source</p>
+				<h2 id="join-title">Build it with us</h2>
+				<p>Circumstances is young, and the people who use it now will shape it most. You don't need to be an evaluation expert: if you build agents, you already know which situations worry you.</p>
+			</div>
+			<a class="btn btn-quiet" href="{{ base }}docs/project/contributing/">The contribution path <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+		</div>
+		<ol class="path">
+			<li><span>1</span><b>Try it</b><p>Run the public packs on a model you use, then tell us what confused you.</p><a class="link-arrow" href="{{ site.repository }}/issues/new?template=feedback.yml">Share feedback <svg aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+			<li><span>2</span><b>Fix what tripped you up</b><p>Docs, error messages, examples. Every page has an edit link.</p><a class="link-arrow" href="{{ site.repository }}/labels/good%20first%20issue">Good first issues <svg aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+			<li><span>3</span><b>Write a case</b><p>One situation in YAML, no code. Pair an attack with a normal request.</p><a class="link-arrow" href="{{ base }}docs/guides/writing-a-pack/">Write a pack <svg aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+			<li><span>4</span><b>Write a pack</b><p>Cover your domain: support, health intake, finance, coding agents.</p><a class="link-arrow" href="{{ site.repository }}/issues/new?template=pack.yml">Propose a pack <svg aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+			<li><span>5</span><b>Connect a framework</b><p>A subject plugin is a small Python package. Bring your favourite SDK.</p><a class="link-arrow" href="{{ base }}docs/guides/connecting-your-agent/">Connect your agent <svg aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+			<li><span>6</span><b>Build the core</b><p>Evaluators, the runner, the viewer, and what comes next on the roadmap.</p><a class="link-arrow" href="{{ base }}docs/project/roadmap/">See the roadmap <svg aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+		</ol>
+		<div class="next-card">
+			<div class="next-copy">
+				<p class="kicker">Next on the roadmap</p>
+				<h3>Adaptive campaigns</h3>
+				<p>An attacker model keeps inventing new situations against one rule, watching the replies and adapting, until the agent breaks or the budget runs out. Every episode is sealed, every break can become a regression case, and the result is a number you can compare: <em>the cost to break</em>.</p>
+				<div class="next-actions">
+					<a class="btn btn-primary" href="{{ base }}docs/project/rfcs/0001-adaptive-campaigns/">Read RFC 1 <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+					<a class="btn btn-ghost" href="{{ base }}docs/project/roadmap/">Full roadmap</a>
+				</div>
+			</div>
+			<figure class="campaign" aria-label="Example campaign: 13 episodes held, the 14th broke the rule after $0.42 of a $5.00 budget">
+				<div class="campaign-head"><span>abstain-when-silent/guess-the-vote</span><span>bandit · seed 7</span></div>
+				<ol class="campaign-episodes" aria-hidden="true">{% for i in range(13) %}<li></li>{% endfor %}<li class="is-break"></li></ol>
+				<div class="campaign-meter" aria-hidden="true"><span style="width: 8.4%"></span></div>
+				<dl class="campaign-stats">
+					<div><dt>First break</dt><dd>episode 14</dd></div>
+					<div><dt>Cost to break</dt><dd>$0.42</dd></div>
+					<div><dt>Budget</dt><dd>$5.00</dd></div>
+				</dl>
+				<figcaption>Illustration of the proposed result</figcaption>
+			</figure>
+		</div>
+	</div>
+</section>
+
 <!-- ─── CTA ─── -->
 <section class="cta" aria-labelledby="cta-title">
 	<div class="wrap cta-inner">

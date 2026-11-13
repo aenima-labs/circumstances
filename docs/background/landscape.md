@@ -114,7 +114,11 @@ On purpose, and not as a later surprise inside this cut:
 
 - Inspect's benchmark catalogue and sandbox fleet.
 - Harbor Hub as a hosted marketplace, and `harbor upload`.
-- Promptfoo's attack-plugin generator, and Garak or PyRIT campaign search.
+- Promptfoo's attack-plugin generator, and Garak or PyRIT campaign search as
+  open-ended attack libraries. The planned
+  [adaptive campaigns](../project/rfcs/0001-adaptive-campaigns.md) are
+  narrower: one declared rule, one declared situation, an operator budget, and
+  sealed episodes.
 - A LangSmith-style trace warehouse, seats, or production monitor.
 - Heatmaps, SARIF, OpenTelemetry export, and shareable cloud URLs.
 

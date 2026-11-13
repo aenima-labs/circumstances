@@ -1,0 +1,26 @@
+name: Feature request
+description: Propose a change to the framework, command line, or viewer.
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem
+      description: What are you trying to test or learn that Circumstances does not let you do today?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What you propose
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives you considered
+  - type: checkboxes
+    id: contract
+    attributes:
+      label: Scope
+      options:
+        - label: This changes a public contract (pack format, run bundle, provider API, or plugin interface) and will need an RFC.
+        - label: I would like to work on this.

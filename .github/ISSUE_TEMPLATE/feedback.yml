@@ -1,0 +1,30 @@
+name: Feedback
+description: You tried Circumstances. Tell us what happened.
+labels: [feedback]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for trying Circumstances. First impressions are the one thing we cannot produce ourselves, so short and blunt is perfect.
+  - type: textarea
+    id: tried
+    attributes:
+      label: What did you try?
+      description: Commands, the pack, and the subject (toy, openai-compatible, your own plugin).
+    validations:
+      required: true
+  - type: textarea
+    id: happened
+    attributes:
+      label: What happened, and what did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: confusing
+    attributes:
+      label: What was confusing or missing?
+  - type: input
+    id: agent
+    attributes:
+      label: What kind of agent do you want to test?
+      description: Optional. It helps us decide which subjects and packs to build next.

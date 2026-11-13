@@ -64,4 +64,6 @@ nav:
       - {src: GOVERNANCE.md, url: docs/project/governance/}
       - {src: SECURITY.md, title: Security policy, url: docs/project/security-policy/}
       - {src: CODE_OF_CONDUCT.md, url: docs/project/code-of-conduct/}
+      - docs/project/roadmap.md
+      - {src: docs/project/rfcs/0001-adaptive-campaigns.md, title: "RFC 1: Adaptive campaigns"}
       - docs/project/history.md
