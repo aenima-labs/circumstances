@@ -26,6 +26,7 @@ jobs:
       - run: uv run mypy
       - run: uv run pytest -q
       - run: uv build
+      - run: uv build packaging/circs
       - name: Verify generated schemas
         run: |
           cp -R jsonschema/v4 /tmp/schemas

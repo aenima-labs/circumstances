@@ -29,6 +29,9 @@ Circumstances is maintained by Aenima Labs.
 
 ## Releases
 
-Maintainers publish GitHub releases with wheel, sdist, checksums, and schema
-artifacts. PyPI publication follows the same tag once package ownership is
-confirmed.
+`circumstances` and its alias `circs` always share one version. To release,
+a maintainer sets it in `src/circumstances/__init__.py` and everywhere in
+`packaging/circs/pyproject.toml`, merges, and pushes a `vX.Y.Z` tag. The
+release workflow publishes `circumstances` and then `circs` to PyPI through
+trusted publishing, then a GitHub release with the wheels, sdists, checksums,
+and schema artifacts.

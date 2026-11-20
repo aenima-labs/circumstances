@@ -1,0 +1,45 @@
+# `circs` on PyPI is the short name of Circumstances. It holds no code: it
+# installs `circumstances` at the same version. `circumstances` already
+# provides a `circs` command; this package declares it again because uv only
+# links commands that the named package itself declares, so without it
+# `uv tool install circs` fails and `uvx circs` warns. Both point at the same
+# function. (`pip uninstall circs` removes that shared launcher too; reinstall
+# `circumstances` to get it back.) Keep the version equal to
+# `circumstances.__version__`; tests/test_packaging.py checks it.
+
+[project]
+name = "circs"
+version = "0.2.0"
+description = "Short name for Circumstances, open-source situational testing for AI agents"
+readme = "README.md"
+license = "Apache-2.0"
+requires-python = ">=3.12"
+authors = [{ name = "Aenima Labs", email = "hello@aenimalabs.com" }]
+keywords = ["agents", "evaluation", "testing", "safety", "situational-testing"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Programming Language :: Python :: 3",
+  "Topic :: Software Development :: Testing",
+]
+dependencies = ["circumstances==0.2.0"]
+
+[project.optional-dependencies]
+http = ["circumstances[http]==0.2.0"]
+server = ["circumstances[server]==0.2.0"]
+
+[project.scripts]
+circs = "circumstances.cli:main"
+
+[project.urls]
+Homepage = "https://circumstances.aenimalabs.com/"
+Documentation = "https://circumstances.aenimalabs.com/"
+Source = "https://github.com/aenima-labs/circumstances"
+Issues = "https://github.com/aenima-labs/circumstances/issues"
+Changelog = "https://github.com/aenima-labs/circumstances/releases"
+
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+bypass-selection = true
