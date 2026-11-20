@@ -5,10 +5,10 @@ on:
     tags: ["v*"]
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  release:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -17,11 +17,76 @@ jobs:
           python-version: "3.12"
           enable-cache: true
       - run: uv sync --extra dev
+      # tests/test_packaging.py also checks that packaging/circs pins this version.
       - run: uv run pytest -q
-      - run: uv build
+      - name: Check the tag matches the package version
+        run: |
+          version="$(uv run python -c 'import circumstances; print(circumstances.__version__)')"
+          if [ "v$version" != "$GITHUB_REF_NAME" ]; then
+            echo "::error::tag $GITHUB_REF_NAME does not match circumstances $version"
+            exit 1
+          fi
+      - run: uv build --out-dir dist
+      - run: uv build packaging/circs --out-dir dist-circs
+      - run: uvx twine check --strict dist/* dist-circs/*
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: |
+            dist/
+            dist-circs/
+          if-no-files-found: error
+
+  # PyPI trusted publishing: each project has its own publisher on pypi.org,
+  # bound to this workflow and to the environment named below.
+  pypi:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/project/circumstances/
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+      - uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: dist/
+
+  # `circs` pins `circumstances==<version>`, so it goes up second.
+  pypi-circs:
+    needs: pypi
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi-circs
+      url: https://pypi.org/project/circs/
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+      - uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: dist-circs/
+
+  github-release:
+    needs: pypi-circs
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
       - name: Checksums and SBOM stub
         run: |
-          cd dist
+          mkdir release
+          cp dist/* dist-circs/* release/
+          cd release
           shasum -a 256 *.whl *.tar.gz > SHA256SUMS
           {
             echo "SPDXVersion: SPDX-2.3"
@@ -34,9 +99,6 @@ jobs:
       - uses: softprops/action-gh-release@v2
         with:
           files: |
-            dist/*.whl
-            dist/*.tar.gz
-            dist/SHA256SUMS
-            dist/circumstances.spdx
+            release/*
             jsonschema/v4/*
           generate_release_notes: true

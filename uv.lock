@@ -126,7 +126,6 @@ wheels = [
 
 [[package]]
 name = "circumstances"
-version = "0.1.0"
 source = { editable = "." }
 dependencies = [
     { name = "pydantic" },
@@ -166,7 +165,7 @@ requires-dist = [
     { name = "types-pyyaml", marker = "extra == 'dev'", specifier = ">=6.0" },
     { name = "uvicorn", marker = "extra == 'server'", specifier = ">=0.32" },
 ]
-provides-extras = ["http", "server", "dev"]
+provides-extras = ["dev", "http", "server"]
 
 [[package]]
 name = "click"

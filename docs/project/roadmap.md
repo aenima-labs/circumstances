@@ -25,13 +25,13 @@ self-contained, and a maintainer will help you scope it. See
   read-only viewer.
 - A pack workflow (`pack init`, `add`, `lint`, `list`), a digest-pinned
   first-party pack index, and seven public packs.
+- PyPI packages: `circumstances`, and `circs`, its short alias, with a `circs`
+  command.
 
 **Known gaps**
 
 - **No judge from the command line.** `semantic.rubric` grades `unknown` unless
   a program passes in a judge, so command-line runs have no semantic evidence.
-- **Not on PyPI.** The `v0.1.0` release predates the pack workflow and the run
-  commands.
 - **`generated_message` is not generated.** The built-in subjects send its
   `prompt` as a literal message. No user simulator plays the persona yet.
 - **`wait` is skipped.** The built-in subjects record a skipped wait instead of
@@ -53,7 +53,6 @@ Target: the next minor release.
 
 | Item | What done looks like | |
 |---|---|---|
-| PyPI release | `pip install circumstances` installs the current command line; release notes list what changed since `v0.1.0` | |
 | CI integration | A GitHub Action that runs packs, writes a JUnit report and a Markdown summary, and fails on a pass^k threshold | **help wanted** |
 | Native subjects | `anthropic` and `openai-responses` subjects with tool calls mapped to `tool_call` and `tool_result` events | **help wanted** |
 | Command-line judge | A judge model chosen with `--judge` (any OpenAI-compatible or native endpoint) grades `semantic.rubric`, and its identity goes into the run lock | |

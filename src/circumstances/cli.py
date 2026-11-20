@@ -8,6 +8,7 @@ import json
 import sys
 from pathlib import Path
 
+from circumstances import __version__
 from circumstances.artifacts import FileArtifactStore, verify_bundle
 from circumstances.bundles import (
     compare_bundles,
@@ -31,6 +32,7 @@ from circumstances.sources import PackSource, cached_packs, load_index, load_pro
 from circumstances.view import serve
 
 _RUN_ADMIN = {"list", "show", "compare", "score"}
+_PROGS = {"circumstances", "circs"}
 _LOOPBACK = {"127.0.0.1", "localhost", "::1"}
 
 
@@ -74,9 +76,16 @@ def main(argv: list[str] | None = None) -> int:
     return 2
 
 
+def _prog() -> str:
+    """Name the command as typed: `circs` is the short alias of `circumstances`."""
+    name = Path(sys.argv[0]).stem
+    return name if name in _PROGS else "circumstances"
+
+
 def _parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(prog="circumstances")
-    parser.add_argument("--version", action="version", version="circumstances 0.1.0")
+    prog = _prog()
+    parser = argparse.ArgumentParser(prog=prog)
+    parser.add_argument("--version", action="version", version=f"circumstances {__version__}")
     subparsers = parser.add_subparsers(dest="command")
 
     lint = subparsers.add_parser("lint-pack", help="validate a pack without running it")
@@ -86,7 +95,7 @@ def _parser() -> argparse.ArgumentParser:
     run = subparsers.add_parser(
         "run",
         help="run a pack against a subject",
-        epilog="Inspections: circumstances run {list,show,compare,score} --help",
+        epilog=f"Inspections: {prog} run {{list,show,compare,score}} --help",
     )
     run.add_argument("pack")
     run.add_argument("--subject", default="toy")
@@ -152,7 +161,7 @@ def _resolution_options(parser: argparse.ArgumentParser) -> None:
 
 
 def _run_admin(argv: list[str]) -> int:
-    parser = argparse.ArgumentParser(prog="circumstances run")
+    parser = argparse.ArgumentParser(prog=f"{_prog()} run")
     commands = parser.add_subparsers(dest="command", required=True)
     listed = commands.add_parser("list", help="list sealed bundles")
     listed.add_argument("--results", default="results")

@@ -2,7 +2,12 @@
 
 ```text
 circumstances [--version] [-h] <command> …
+circs [--version] [-h] <command> …
 ```
+
+`circs` is the short alias of `circumstances`: the same command line under a
+shorter name. This page writes `circumstances`; every command works with
+either.
 
 Every command that prints structured data prints indented JSON with sorted
 keys. Errors go to standard error as `error: <message>`.

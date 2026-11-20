@@ -62,8 +62,14 @@ export CIRCUMSTANCES_OPENAI_MODEL=your-model
 uv run circumstances run packs/grounding --subject openai-compatible
 ```
 
-To install the command line without a clone, see
-[Installation](docs/getting-started/installation.md).
+To install the command line without a clone:
+
+```bash
+uv tool install "circumstances[http]"   # or: pip install "circumstances[http]"
+circs --version                          # circs is the short alias of circumstances
+```
+
+More options are in [Installation](docs/getting-started/installation.md).
 
 ## How it works
 
@@ -131,8 +137,7 @@ Circumstances is young, and the people who use it now will shape it most. The
 5. **Connect a framework** with a subject plugin.
 6. **Build the core**: evaluators, the runner, the viewer.
 
-Next on the [roadmap](docs/project/roadmap.md): a PyPI release, a GitHub
-Action for CI, native subjects, a command-line judge, and
+Next on the [roadmap](docs/project/roadmap.md): a GitHub Action for CI, native subjects, a command-line judge, and
 [**adaptive campaigns**](docs/project/rfcs/0001-adaptive-campaigns.md), where an
 attacker model keeps inventing new situations against one rule until the agent
 breaks or the budget runs out, and reports the **cost to break**.

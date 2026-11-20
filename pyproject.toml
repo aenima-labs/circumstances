@@ -1,24 +1,30 @@
 [project]
 name = "circumstances"
-version = "0.1.0"
+dynamic = ["version", "readme"]
 description = "Open-source situational testing framework for AI agents"
-readme = "README.md"
 license = "Apache-2.0"
 requires-python = ">=3.12"
 authors = [{ name = "Aenima Labs", email = "hello@aenimalabs.com" }]
 keywords = ["agents", "evaluation", "testing", "safety", "situational-testing"]
 classifiers = [
   "Development Status :: 3 - Alpha",
-  "License :: OSI Approved :: Apache Software License",
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
   "Topic :: Software Development :: Testing",
 ]
 dependencies = [
   "pydantic>=2.10",
   "pyyaml>=6.0",
 ]
+
+[project.urls]
+Homepage = "https://circumstances.aenimalabs.com/"
+Documentation = "https://circumstances.aenimalabs.com/"
+Source = "https://github.com/aenima-labs/circumstances"
+Issues = "https://github.com/aenima-labs/circumstances/issues"
+Changelog = "https://github.com/aenima-labs/circumstances/releases"
 
 [project.optional-dependencies]
 http = ["httpx>=0.27"]
@@ -35,17 +41,48 @@ dev = [
 
 [project.scripts]
 circumstances = "circumstances.cli:main"
+circs = "circumstances.cli:main"
 
 [project.entry-points."circumstances.subjects"]
 toy = "circumstances.adapters.toy:ToySubjectPlugin"
 openai-compatible = "circumstances.adapters.openai_compatible:OpenAICompatibleSubjectPlugin"
 
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling>=1.27", "hatch-fancy-pypi-readme>=24.1"]
 build-backend = "hatchling.build"
+
+[tool.hatch.version]
+path = "src/circumstances/__init__.py"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/circumstances"]
+
+[tool.hatch.build.targets.sdist]
+exclude = ["/.github", "/site", "/packaging"]
+
+# PyPI renders README.md outside the repository, so relative links and images
+# would break there. Point them at GitHub and drop the Mermaid diagram.
+[tool.hatch.metadata.hooks.fancy-pypi-readme]
+content-type = "text/markdown"
+
+[[tool.hatch.metadata.hooks.fancy-pypi-readme.fragments]]
+path = "README.md"
+
+[[tool.hatch.metadata.hooks.fancy-pypi-readme.substitutions]]
+pattern = '(?s)```mermaid\n.*?```\n'
+replacement = ''
+
+[[tool.hatch.metadata.hooks.fancy-pypi-readme.substitutions]]
+pattern = '(src|srcset)="\.github/'
+replacement = '\1="https://raw.githubusercontent.com/aenima-labs/circumstances/main/.github/'
+
+[[tool.hatch.metadata.hooks.fancy-pypi-readme.substitutions]]
+pattern = 'href="(?!https?:|#)([^"]+)"'
+replacement = 'href="https://github.com/aenima-labs/circumstances/blob/main/\1"'
+
+[[tool.hatch.metadata.hooks.fancy-pypi-readme.substitutions]]
+pattern = '\]\((?!https?:|#)([^)]+)\)'
+replacement = '](https://github.com/aenima-labs/circumstances/blob/main/\1)'
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
