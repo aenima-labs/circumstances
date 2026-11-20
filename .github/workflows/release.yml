@@ -54,6 +54,8 @@ jobs:
       - uses: pypa/gh-action-pypi-publish@release/v1
         with:
           packages-dir: dist/
+          # Lets 'Re-run all jobs' finish after one of the two uploads succeeded.
+          skip-existing: true
 
   # `circs` pins `circumstances==<version>`, so it goes up second.
   pypi-circs:
@@ -71,6 +73,8 @@ jobs:
       - uses: pypa/gh-action-pypi-publish@release/v1
         with:
           packages-dir: dist-circs/
+          # Lets 'Re-run all jobs' finish after one of the two uploads succeeded.
+          skip-existing: true
 
   github-release:
     needs: pypi-circs
