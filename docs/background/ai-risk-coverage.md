@@ -3,7 +3,7 @@
 Pack: `aenima/ai-risk` `1.0.0`
 
 This programme maps selected Circumstances situations to the MIT AI Risk
-Repository Domain Taxonomy. It is an Aenima Labs coverage matrix, not an MIT
+Repository Domain Taxonomy. It is an Ænima Labs coverage matrix, not an MIT
 product, endorsement, audit, or certification.
 
 ## Provenance

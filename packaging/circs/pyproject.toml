@@ -14,7 +14,7 @@ description = "Short name for Circumstances, open-source situational testing for
 readme = "README.md"
 license = "Apache-2.0"
 requires-python = ">=3.12"
-authors = [{ name = "Aenima Labs", email = "hello@aenimalabs.com" }]
+authors = [{ name = "Ænima Labs", email = "hello@aenimalabs.com" }]
 keywords = ["agents", "evaluation", "testing", "safety", "situational-testing"]
 classifiers = [
   "Development Status :: 3 - Alpha",

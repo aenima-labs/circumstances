@@ -22,7 +22,7 @@ The `aenima-labs/circumstances` repository contains:
 
 - `src/circumstances`: core models, pack resolver, runner, evaluator registry,
   artifact store, CLI, and provider API types.
-- `packs`: general Aenima Labs packs with fictional Apache-2.0 fixtures.
+- `packs`: general Ænima Labs packs with fictional Apache-2.0 fixtures.
 - `examples`: neutral subjects that require no private service.
 - `jsonschema`: generated pack and run schemas.
 - `docs`: trust model, pack authoring, adapter authoring, and methodology.
