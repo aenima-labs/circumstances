@@ -17,8 +17,8 @@ production traces.
 ## Using packs
 
 ```bash
-uv run circumstances pack lint packs/grounding
-uv run circumstances run packs/grounding --subject toy
+uv run circs pack lint packs/grounding
+uv run circs run packs/grounding --subject toy
 ```
 
 Treat packs as untrusted data. See [Security](../docs/background/security.md) and

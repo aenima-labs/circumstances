@@ -1,13 +1,12 @@
 # Command line
 
 ```text
-circumstances [--version] [-h] <command> …
 circs [--version] [-h] <command> …
 ```
 
-`circs` is the short alias of `circumstances`: the same command line under a
-shorter name. This page writes `circumstances`; every command works with
-either.
+`circs` is the short name of `circumstances`. Both commands are installed and
+run the same command line, so every command on this page also works as
+`circumstances <command>`.
 
 Every command that prints structured data prints indented JSON with sorted
 keys. Errors go to standard error as `error: <message>`.
@@ -23,7 +22,7 @@ keys. Errors go to standard error as `error: <message>`.
 ### `pack init`
 
 ```text
-circumstances pack init <directory> [--id PUBLISHER/NAME] [--title TITLE]
+circs pack init <directory> [--id PUBLISHER/NAME] [--title TITLE]
 ```
 
 Writes a format-v4 pack into an empty or new directory: `pack.yaml`, one rule
@@ -35,7 +34,7 @@ lowercase slug. Refuses a non-empty directory.
 ### `pack add rule`
 
 ```text
-circumstances pack add rule <pack> <rule-id> [--title TITLE]
+circs pack add rule <pack> <rule-id> [--title TITLE]
 ```
 
 Creates `rules/<rule-id>/rule.yaml` with no evaluators. `<rule-id>` must be a
@@ -44,7 +43,7 @@ lowercase slug. Refuses an existing rule.
 ### `pack add case`
 
 ```text
-circumstances pack add case <pack> <rule-id> <case-id> [--polarity P] [--title TITLE]
+circs pack add case <pack> <rule-id> <case-id> [--polarity P] [--title TITLE]
 ```
 
 Creates `rules/<rule-id>/cases/<case-id>/case.yaml` with one message action and
@@ -54,7 +53,7 @@ a `smoke.text` evaluator with self-tests. `--polarity` is one of `positive`
 ### `pack add <ref-or-name>`
 
 ```text
-circumstances pack add <ref-or-name> [--digest SHA256] [--trust LEVEL]
+circs pack add <ref-or-name> [--digest SHA256] [--trust LEVEL]
 ```
 
 Resolves a pack into the local cache and prints its `source`, `digest`,
@@ -67,7 +66,7 @@ archive, a `git+https://` reference, a first-party index name, or a name from
 ### `pack list`
 
 ```text
-circumstances pack list
+circs pack list
 ```
 
 Prints `cached` (packs in `~/.cache/circumstances/packs`) and `known` (index
@@ -76,7 +75,7 @@ and project names with their refs, trust, digests, and revisions).
 ### `pack lint`
 
 ```text
-circumstances pack lint <pack> [--trust LEVEL] [--digest SHA256]
+circs pack lint <pack> [--trust LEVEL] [--digest SHA256]
 ```
 
 Resolves and loads the pack, validates every file, and runs every evaluator
@@ -94,7 +93,7 @@ a known-fail self-test; a pack whose cases are graded only by smoke evaluators.
 ### `run`
 
 ```text
-circumstances run <pack> [--subject ID] [--model NAME] [--case ID]…
+circs run <pack> [--subject ID] [--model NAME] [--case ID]…
                          [--repetitions N] [--concurrency N]
                          [--retention purge|artifacts|preserve]
                          [--results DIR] [--trust LEVEL] [--digest SHA256]
@@ -117,7 +116,7 @@ Prints `run_id`, `passed`, `trials`, `trials_passed`, and `bundle`.
 ### `run list`
 
 ```text
-circumstances run list [--results DIR]
+circs run list [--results DIR]
 ```
 
 Lists sealed bundles with `run_id`, `pack_id`, `pack_version`, `started_at`,
@@ -126,7 +125,7 @@ Lists sealed bundles with `run_id`, `pack_id`, `pack_version`, `started_at`,
 ### `run show`
 
 ```text
-circumstances run show <run> [--results DIR]
+circs run show <run> [--results DIR]
 ```
 
 `<run>` is a run id under `--results` or a bundle path. Prints the run lock and,
@@ -136,7 +135,7 @@ per case, `rule_id`, `trials`, `passed_trials`, `pass_at_k`, `pass_hat_k`,
 ### `run compare`
 
 ```text
-circumstances run compare <a> <b> [--results DIR]
+circs run compare <a> <b> [--results DIR]
 ```
 
 Verifies both bundles, refuses (exit 2) if their run locks differ, otherwise
@@ -146,7 +145,7 @@ statistics. See [Compare and regrade runs](../guides/comparing-and-regrading.md)
 ### `run score`
 
 ```text
-circumstances run score <bundle> [--results DIR]
+circs run score <bundle> [--results DIR]
 ```
 
 Verifies the bundle, grades its stored trajectories with the installed
@@ -156,7 +155,7 @@ the subject or modify the bundle. Exits 1 if any regraded trial fails.
 ### `verify-bundle`
 
 ```text
-circumstances verify-bundle <bundle>
+circs verify-bundle <bundle>
 ```
 
 Checks every file against `seal.json`. Prints `bundle verified`, or one
@@ -165,7 +164,7 @@ Checks every file against `seal.json`. Prints `bundle verified`, or one
 ### `view`
 
 ```text
-circumstances view [results] [--host 127.0.0.1] [--port 8765]
+circs view [results] [--host 127.0.0.1] [--port 8765]
 ```
 
 Serves a read-only results viewer. Only loopback hosts (`127.0.0.1`,
@@ -176,7 +175,7 @@ Serves a read-only results viewer. Only loopback hosts (`127.0.0.1`,
 ### `subjects`
 
 ```text
-circumstances subjects
+circs subjects
 ```
 
 Lists installed subject plugins with their `id`, `version`, and
@@ -185,7 +184,7 @@ Lists installed subject plugins with their `id`, `version`, and
 ### `export-schema`
 
 ```text
-circumstances export-schema [destination]
+circs export-schema [destination]
 ```
 
 Writes JSON Schemas for the public contracts to `destination` (default
@@ -196,7 +195,7 @@ validation while you write packs.
 ### `migrate-pack`
 
 ```text
-circumstances migrate-pack <source> <destination>
+circs migrate-pack <source> <destination>
 ```
 
 Converts a Gears schema-v3 pack into format v4. Product-specific fields move

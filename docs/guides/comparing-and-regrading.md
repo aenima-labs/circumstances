@@ -8,7 +8,7 @@ Two questions come up once you have more than one run:
 ## Compare two runs
 
 ```bash
-circumstances run compare <run-a> <run-b>
+circs run compare <run-a> <run-b>
 ```
 
 Each argument is a run id under `results/` or a path to a bundle. Both bundles
@@ -77,7 +77,7 @@ reading. Label it that way in anything you publish.
 ## Regrade a run
 
 ```bash
-circumstances run score <run-id-or-path>
+circs run score <run-id-or-path>
 ```
 
 `score` grades the stored trajectories again, with the evaluators installed

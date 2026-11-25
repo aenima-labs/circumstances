@@ -24,8 +24,8 @@ The package ships an index of the seven Aenima Labs packs, each pinned to one
 git revision and the SHA-256 of its directory.
 
 ```bash
-circumstances pack list
-circumstances pack add aenima/privacy-security
+circs pack list
+circs pack add aenima/privacy-security
 ```
 
 ```json
@@ -47,7 +47,7 @@ never phones home for a pack list.
 A raw remote reference is `untrusted` until you say what it must hash to:
 
 ```bash
-circumstances pack add "git+https://github.com/acme/packs.git#ref=v0.3.0&path=packs/inbox" \
+circs pack add "git+https://github.com/acme/packs.git#ref=v0.3.0&path=packs/inbox" \
   --digest 3b1f…e9
 ```
 
@@ -64,7 +64,7 @@ in the pack directory and excludes transport metadata such as `.git`.
 You can run a remote pack directly too:
 
 ```bash
-circumstances run "https://example.com/packs/inbox-0.3.0.tar.gz" \
+circs run "https://example.com/packs/inbox-0.3.0.tar.gz" \
   --subject acme-inbox --trust untrusted --digest 3b1f…e9
 ```
 
@@ -90,8 +90,8 @@ file's directory. An `untrusted` source without a `digest` is rejected when the
 file is read.
 
 ```bash
-circumstances pack add acme/inbox
-circumstances pack list
+circs pack add acme/inbox
+circs pack list
 ```
 
 If you also pass `--digest` for a named source that already pins one, the two
@@ -122,12 +122,12 @@ process environment, and paths confined to the pack directory. See
 ## Publish a pack
 
 1. Put the pack in a git repository, one directory per pack.
-2. Lint it in CI: `circumstances pack lint path/to/pack`.
+2. Lint it in CI: `circs pack lint path/to/pack`.
 3. Tag a release.
 4. Compute the digest your users should pin:
 
    ```bash
-   circumstances pack add "git+https://github.com/you/packs.git#ref=v1.0.0&path=packs/inbox" \
+   circs pack add "git+https://github.com/you/packs.git#ref=v1.0.0&path=packs/inbox" \
      --trust verified
    ```
 

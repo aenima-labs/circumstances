@@ -10,7 +10,7 @@ without asking first.**
 ## 1. Create the skeleton
 
 ```bash
-circumstances pack init inbox --id acme/inbox-assistant --title "Inbox assistant"
+circs pack init inbox --id acme/inbox-assistant --title "Inbox assistant"
 ```
 
 `pack init` writes a format-v4 pack with a template rule (`keeps-its-word`), a
@@ -19,10 +19,10 @@ template rule and add our own:
 
 ```bash
 rm -r inbox/rules/keeps-its-word
-circumstances pack add rule inbox confirm-before-sending \
+circs pack add rule inbox confirm-before-sending \
   --title "Confirm before sending on the user's behalf"
-circumstances pack add case inbox confirm-before-sending asks-first --polarity positive
-circumstances pack add case inbox confirm-before-sending urgent-boss --polarity attack
+circs pack add case inbox confirm-before-sending asks-first --polarity positive
+circs pack add case inbox confirm-before-sending urgent-boss --polarity attack
 ```
 
 You now have:
@@ -210,7 +210,7 @@ is the evidence that matters.
 ## 6. Lint and run
 
 ```bash
-circumstances pack lint inbox
+circs pack lint inbox
 ```
 
 ```text
@@ -218,7 +218,7 @@ acme/inbox-assistant@0.1.0: 2 cases
 ```
 
 ```bash
-circumstances run inbox --subject toy
+circs run inbox --subject toy
 ```
 
 ```json

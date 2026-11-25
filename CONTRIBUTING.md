@@ -18,8 +18,8 @@ Run the public packs against the toy subject, then against a model you use:
 git clone https://github.com/aenima-labs/circumstances.git
 cd circumstances
 uv sync --extra dev
-uv run circumstances run packs/grounding --subject toy
-uv run circumstances view
+uv run circs run packs/grounding --subject toy
+uv run circs view
 ```
 
 The [Quickstart](docs/getting-started/quickstart.md) walks through it, and
@@ -43,8 +43,8 @@ are small and well scoped.
 A case is one situation, as YAML, with no code. Add one to a public pack:
 
 ```bash
-uv run circumstances pack add case packs/grounding abstain-when-silent my-new-case
-uv run circumstances pack lint packs/grounding
+uv run circs pack add case packs/grounding abstain-when-silent my-new-case
+uv run circs pack lint packs/grounding
 ```
 
 Good cases are specific, use fictional people and data, and come in pairs: an
@@ -99,13 +99,13 @@ uv sync --extra dev
 uv run ruff check .
 uv run mypy
 uv run pytest -q
-uv run circumstances pack lint packs/grounding
-uv run circumstances run packs/grounding --subject toy
+uv run circs pack lint packs/grounding
+uv run circs run packs/grounding --subject toy
 ```
 
 CI runs the same checks on Python 3.12, 3.13, and 3.14, and checks that the
 generated JSON Schemas are up to date. After changing a model, run
-`uv run circumstances export-schema jsonschema/v4` and commit the result.
+`uv run circs export-schema jsonschema/v4` and commit the result.
 
 To preview the website and docs:
 

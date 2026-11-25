@@ -16,13 +16,13 @@ Configure it with environment variables and run:
 export CIRCUMSTANCES_OPENAI_BASE_URL=https://api.example.com/v1
 export CIRCUMSTANCES_OPENAI_API_KEY=sk-…
 export CIRCUMSTANCES_OPENAI_MODEL=example-model-1
-circumstances run packs/grounding --subject openai-compatible
+circs run packs/grounding --subject openai-compatible
 ```
 
 `--model` overrides `CIRCUMSTANCES_OPENAI_MODEL` for one run:
 
 ```bash
-circumstances run packs/grounding --subject openai-compatible --model example-model-2
+circs run packs/grounding --subject openai-compatible --model example-model-2
 ```
 
 What it does:
@@ -162,9 +162,9 @@ acme-inbox = "acme_circumstances:AcmeSubjectPlugin"
 Install that package into the same environment as Circumstances, then:
 
 ```bash
-circumstances subjects                       # acme-inbox is listed
-circumstances run inbox --subject acme-inbox
-circumstances run inbox --subject acme-inbox --model acme-large
+circs subjects                       # acme-inbox is listed
+circs run inbox --subject acme-inbox
+circs run inbox --subject acme-inbox --model acme-large
 ```
 
 The entry-point name must equal `descriptor.id`; the registry refuses a plugin
@@ -241,8 +241,8 @@ different fixture data cannot be compared by accident.
 Run a public pack with your subject and read the trajectory:
 
 ```bash
-circumstances run packs/grounding --subject acme-inbox
-circumstances run show <run-id> | jq '.cases[0].attempts[0].events'
+circs run packs/grounding --subject acme-inbox
+circs run show <run-id> | jq '.cases[0].attempts[0].events'
 ```
 
 Check that every action produced the events you expect, that sequences are

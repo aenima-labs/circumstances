@@ -1,8 +1,9 @@
 # Installation
 
 Circumstances is a Python package with one command line, which installs under
-two names: `circumstances` and the short alias `circs`. It needs Python 3.12 or
-newer. CI tests it on Linux with Python 3.12, 3.13, and 3.14.
+two names: `circumstances` and the short alias `circs`. These docs write
+`circs`. It needs Python 3.12 or newer. CI tests it on Linux with Python 3.12,
+3.13, and 3.14.
 
 ## Install the command line
 
@@ -23,8 +24,8 @@ it out if you only use the deterministic `toy` subject or your own plugins.
 Check the install:
 
 ```bash
-circumstances --version
-circumstances subjects
+circs --version
+circs subjects
 ```
 
 `subjects` lists the subject plugins Python can find. A fresh install shows
@@ -39,10 +40,10 @@ uvx circs --version
 ## The short name: `circs`
 
 `circs` runs the same command line as `circumstances`, so every example in
-these docs works with either name:
+these docs also works with the full name:
 
 ```bash
-circs run packs/grounding --subject toy
+circumstances run packs/grounding --subject toy
 ```
 
 `circs` is also a package on PyPI. It holds no code and installs
@@ -65,7 +66,7 @@ Each [GitHub release](https://github.com/aenima-labs/circumstances/releases)
 also attaches the wheels, the sdists, `SHA256SUMS`, an SPDX stub, and the JSON
 Schemas. `v0.1.0` predates the PyPI packages, the pack workflow (`pack init`,
 `pack add`, `pack list`), the run inspections (`run list`, `show`, `compare`,
-`score`), and `circumstances view`.
+`score`), and `view`.
 
 To run the unreleased default branch:
 
@@ -82,7 +83,7 @@ let uv create the environment:
 git clone https://github.com/aenima-labs/circumstances.git
 cd circumstances
 uv sync --extra dev
-uv run circumstances --version
+uv run circs --version
 ```
 
 From a clone, prefix every command with `uv run`.

@@ -49,8 +49,8 @@ actually did, and seals the evidence so anyone can check it.
 git clone https://github.com/aenima-labs/circumstances.git
 cd circumstances
 uv sync --extra dev
-uv run circumstances run packs/grounding --subject toy
-uv run circumstances view
+uv run circs run packs/grounding --subject toy
+uv run circs view
 ```
 
 The toy subject is deterministic and needs no model key. To test your own
@@ -59,7 +59,7 @@ model, point the OpenAI-compatible subject at any endpoint:
 ```bash
 export CIRCUMSTANCES_OPENAI_BASE_URL=http://127.0.0.1:11434/v1
 export CIRCUMSTANCES_OPENAI_MODEL=your-model
-uv run circumstances run packs/grounding --subject openai-compatible
+uv run circs run packs/grounding --subject openai-compatible
 ```
 
 To install the command line without a clone:
