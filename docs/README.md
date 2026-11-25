@@ -74,9 +74,9 @@ Why Circumstances is shaped the way it is.
 
 ## Conventions in these pages
 
-- Commands are shown with `uv run circumstances …` when they run from a clone
-  of this repository, and as plain `circumstances …` when the package is
-  installed in your environment. Both forms are equivalent.
+- Commands use `circs`, the short name of the `circumstances` command. Both
+  are installed and do the same thing. Commands that run from a clone of this
+  repository are prefixed with `uv run`.
 - Every command that prints structured output prints JSON, so you can pipe it
   into `jq`.
 - "Pack format v4" is the only public format. Fields marked *required* are

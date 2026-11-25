@@ -3,7 +3,7 @@
 ## Run a pack
 
 ```bash
-circumstances run <pack> --subject <id> [options]
+circs run <pack> --subject <id> [options]
 ```
 
 `<pack>` is anything the resolver accepts: a local directory, an `https://`
@@ -12,7 +12,7 @@ archive, or a `git+https://…` reference. See
 
 | Option | Default | What it does |
 |---|---|---|
-| `--subject ID` | `toy` | Subject plugin to test. `circumstances subjects` lists them. |
+| `--subject ID` | `toy` | Subject plugin to test. `circs subjects` lists them. |
 | `--model NAME` | none | Passed to subjects that accept a model; refused by those that do not. |
 | `--case ID` | all cases | Run one case. Repeat the flag for several. |
 | `--repetitions N` | `1` | Minimum trials per case. A case's own `trials` wins if it is higher. |
@@ -35,22 +35,22 @@ The command prints a JSON summary and exits with:
 Run one case five times:
 
 ```bash
-circumstances run packs/grounding --subject toy \
+circs run packs/grounding --subject toy \
   --case abstain-when-silent/vote --repetitions 5
 ```
 
 Run a whole pack with eight trials in parallel and keep results elsewhere:
 
 ```bash
-circumstances run packs/ai-risk --subject acme-agent \
+circs run packs/ai-risk --subject acme-agent \
   --repetitions 10 --concurrency 8 --results ~/evals/2026-11
 ```
 
 Gate a CI job on a pack:
 
 ```bash
-circumstances pack lint packs/action-integrity
-circumstances run packs/action-integrity --subject acme-agent --repetitions 5
+circs pack lint packs/action-integrity
+circs run packs/action-integrity --subject acme-agent --repetitions 5
 ```
 
 ## What happens during a run
@@ -112,7 +112,7 @@ every trial, not the best one.
 ### List runs
 
 ```bash
-circumstances run list
+circs run list
 ```
 
 Lists every sealed bundle under `results/` with its pack, version, start time,
@@ -121,7 +121,7 @@ trial count, and verdict.
 ### Show one run
 
 ```bash
-circumstances run show <run-id-or-path>
+circs run show <run-id-or-path>
 ```
 
 Prints the run lock and, for every case, the repetition statistics and each
@@ -132,23 +132,23 @@ Pipe it into `jq` to answer specific questions:
 
 ```bash
 # Which cases failed?
-circumstances run show <run-id> | jq -r '.cases[] | select(.passed | not) | .case_id'
+circs run show <run-id> | jq -r '.cases[] | select(.passed | not) | .case_id'
 
 # What did the agent say in the first attempt of each case?
-circumstances run show <run-id> | jq -r '.cases[] | .case_id as $c
+circs run show <run-id> | jq -r '.cases[] | .case_id as $c
   | .attempts[0].events[] | select(.kind == "message" and .role == "assistant")
   | "\($c): \(.content)"'
 
 # Why did a grade fail?
-circumstances run show <run-id> | jq '.cases[].attempts[].grades[]
+circs run show <run-id> | jq '.cases[].attempts[].grades[]
   | select(.status != "pass") | {evaluator_id, status, reasoning}'
 ```
 
 ### Open the local viewer
 
 ```bash
-circumstances view            # reads ./results
-circumstances view ~/evals/2026-11 --port 9000
+circs view            # reads ./results
+circs view ~/evals/2026-11 --port 9000
 ```
 
 `view` serves a read-only page on `http://127.0.0.1:8765`. It lists runs and
@@ -159,7 +159,7 @@ and it listens on the loopback interface only; any other `--host` is refused.
 ## Verify a bundle
 
 ```bash
-circumstances verify-bundle results/<run-id>
+circs verify-bundle results/<run-id>
 ```
 
 Recomputes the SHA-256 of every file and compares it with `seal.json`. It

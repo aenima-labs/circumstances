@@ -151,7 +151,7 @@ follow these rules:
 7. **Cite events.** Ask the judge for the sequence numbers it relied on and
    return them as evidence.
 
-Then regrade earlier runs with `circumstances run score` to see what the judge
+Then regrade earlier runs with `circs run score` to see what the judge
 would have said about trajectories you already have.
 
 See [Evaluation methodology](../background/methodology.md) for what a semantic

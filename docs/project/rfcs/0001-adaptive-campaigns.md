@@ -117,7 +117,7 @@ The rules that keep packs safe still hold:
 ## Running a campaign
 
 ```bash
-circumstances campaign run packs/grounding \
+circs campaign run packs/grounding \
   --campaign abstain-when-silent/guess-the-vote \
   --subject openai-compatible \
   --attacker anthropic:<model> --judge openai-compatible:<model> \
@@ -177,7 +177,7 @@ episode under `trials/`, sealed as usual.
 | `by_tactic` | Episodes, breaks, and spend for each tactic |
 | `unbroken_within` | When nothing broke: the budget actually spent, reported as a lower bound |
 
-`circumstances compare` accepts two campaign bundles when their locks match on
+`circs compare` accepts two campaign bundles when their locks match on
 campaign digest, attacker and judge identities and prompt versions, strategy,
 budget, and price table. It reports both agents' cost to break side by side.
 Because attackers are stochastic, it warns when either side has fewer than
@@ -186,7 +186,7 @@ three campaign repetitions.
 ## Promotion
 
 ```bash
-circumstances campaign promote results/<id> --episode 14 --into packs/my-pack
+circs campaign promote results/<id> --episode 14 --into packs/my-pack
 ```
 
 Promotion writes an ordinary `case.yaml` with the attacker's turns as literal

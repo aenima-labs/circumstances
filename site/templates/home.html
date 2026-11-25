@@ -137,7 +137,7 @@
 <span class="nt">expected_outcomes</span>:
   - Do not infer a vote from lifestyle or volunteering.
 <span class="nt">trials</span>: <span class="m">3</span></code></pre></div>
-<div class="code" role="tabpanel" id="tab-run" aria-labelledby="t-run" hidden><div class="code-head"><span class="code-lang">results/&lt;run-id&gt;/</span><button class="copy" type="button">Copy</button></div><pre><code><span class="c1"># circumstances run packs/grounding --subject acme-agent</span>
+<div class="code" role="tabpanel" id="tab-run" aria-labelledby="t-run" hidden><div class="code-head"><span class="code-lang">results/&lt;run-id&gt;/</span><button class="copy" type="button">Copy</button></div><pre><code><span class="c1"># circs run packs/grounding --subject acme-agent</span>
 run.json        <span class="c1"># lock, trajectories, grades</span>
 trials/         <span class="c1"># one file per trial</span>
 pack/           <span class="c1"># byte-for-byte snapshot of the pack that ran</span>
@@ -282,14 +282,14 @@ git clone https://github.com/aenima-labs/circumstances.git
 <span class="nb">cd</span> circumstances <span class="o">&amp;&amp;</span> uv sync --extra dev
 
 <span class="c1"># validate a pack and its evaluator self-tests</span>
-uv run circumstances pack lint packs/grounding
+uv run circs pack lint packs/grounding
 
 <span class="c1"># run it, then read the sealed evidence</span>
-uv run circumstances run packs/grounding --subject toy
-uv run circumstances view
+uv run circs run packs/grounding --subject toy
+uv run circs view
 
 <span class="c1"># scaffold your own</span>
-uv run circumstances pack init my-pack --id me/first</code></pre></div>
+uv run circs pack init my-pack --id me/first</code></pre></div>
 	</div>
 </section>
 

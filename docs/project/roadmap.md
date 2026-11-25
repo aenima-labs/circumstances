@@ -85,7 +85,7 @@ The full design is in
   agents compared at the same budget answer "which one is harder to talk out of
   its rules?"
 - A confirmed break can be **promoted** into an ordinary static case with
-  `circumstances campaign promote`, so every failure the attacker finds becomes
+  `circs campaign promote`, so every failure the attacker finds becomes
   a regression test.
 
 Milestones:

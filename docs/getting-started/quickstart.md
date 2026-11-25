@@ -19,7 +19,7 @@ A pack is a folder of YAML. Linting validates every file against pack format v4
 and runs each evaluator's self-tests, without touching any agent.
 
 ```bash
-uv run circumstances pack lint packs/grounding
+uv run circs pack lint packs/grounding
 ```
 
 ```text
@@ -34,7 +34,7 @@ with status 1.
 ## 2. Run it
 
 ```bash
-uv run circumstances run packs/grounding --subject toy
+uv run circs run packs/grounding --subject toy
 ```
 
 ```json
@@ -60,9 +60,9 @@ gate a CI job.
 Every run writes a sealed bundle under `results/<run-id>/`. Three ways in:
 
 ```bash
-uv run circumstances run list
-uv run circumstances run show c025c1ace7c742859d937b080b246892   # run id or bundle path
-uv run circumstances view                # http://127.0.0.1:8765
+uv run circs run list
+uv run circs run show c025c1ace7c742859d937b080b246892   # run id or bundle path
+uv run circs view                # http://127.0.0.1:8765
 ```
 
 `run show` prints every case, every trial, the ordered events of each
@@ -72,7 +72,7 @@ same data as a read-only page on your machine.
 Check that nothing in the bundle changed since it was written:
 
 ```bash
-uv run circumstances verify-bundle results/c025c1ace7c742859d937b080b246892
+uv run circs verify-bundle results/c025c1ace7c742859d937b080b246892
 ```
 
 ## 4. Point it at a model
@@ -83,7 +83,7 @@ llama.cpp, LM Studio, or a hosted provider.
 ```bash
 export CIRCUMSTANCES_OPENAI_BASE_URL=http://127.0.0.1:11434/v1
 export CIRCUMSTANCES_OPENAI_MODEL=llama3.2
-uv run circumstances run packs/grounding --subject openai-compatible
+uv run circs run packs/grounding --subject openai-compatible
 ```
 
 Some grounding cases need a subject that can call `search` and `cite` tools. A
@@ -95,9 +95,9 @@ whole system instead.
 ## 5. Write your own
 
 ```bash
-uv run circumstances pack init my-pack --id me/first --title "My first pack"
-uv run circumstances pack lint my-pack
-uv run circumstances run my-pack --subject toy
+uv run circs pack init my-pack --id me/first --title "My first pack"
+uv run circs pack lint my-pack
+uv run circs run my-pack --subject toy
 ```
 
 The template contains one rule, a positive case, and a negative case, each with

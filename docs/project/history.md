@@ -23,9 +23,9 @@ and no Gears history is in this repository.
 
 ## Converting an old pack
 
-`circumstances migrate-pack` converts a Gears schema-v3 pack into format v4
+`circs migrate-pack` converts a Gears schema-v3 pack into format v4
 data. It is best-effort and exists for teams moving their own private packs.
 Product-specific fields move into a namespaced fixture, so a converted pack
 still needs that product's subject plugin to run. Review the result with
-`circumstances pack lint` before using it. See
+`circs pack lint` before using it. See
 [`migrate-pack`](../reference/cli.md#migrate-pack).

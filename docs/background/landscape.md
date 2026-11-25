@@ -78,7 +78,7 @@ Read on 11 November 2026 from the docs linked above.
 | Smoke vs meaning | smoke is a labelled tier; judges may return `unknown` | task scorers | task reward | assertion or grader result | detector hit | metric score |
 | Pack / dataset CLI | `pack init`, `add`, `list`, `lint` | `list`, task imports | `datasets list`, `run -d` | `init`, `redteam plugins` | probes shipped in the install | dataset upload / list |
 | Run CLI | `run`, `run list`, `show`, `compare`, `score` | `eval`, `eval-retry`, `log` | `run`, `view`, `upload` | `eval`, `view` | `garak`, `pyrit_scan` | `experiment list`, `bt eval` |
-| Local viewer | `circumstances view` over sealed bundles | `inspect view` | `harbor view jobs` | `promptfoo view` | CoPyRIT for PyRIT | `deepeval inspect`; `view` opens the cloud |
+| Local viewer | `circs view` over sealed bundles | `inspect view` | `harbor view jobs` | `promptfoo view` | CoPyRIT for PyRIT | `deepeval inspect`; `view` opens the cloud |
 | Hosted dashboard | none; `view` is local | not required | Harbor Hub | Promptfoo cloud / share | not the product | the product |
 | Third-party install | pinned index, `git+https` or HTTPS archive; untrusted refs need a digest | tasks in the library, plus Harbor datasets | `org/name@version` from the hub | plugins in the package | probes in the package | upload into the vendor account |
 
@@ -131,12 +131,12 @@ owner promotes.
 ### 1. Pack workflow
 
 ```bash
-circumstances pack init <dir>
-circumstances pack add rule <pack> <rule-id>
-circumstances pack add case <pack> <rule-id> <case-id>
-circumstances pack lint <pack>          # lint-pack remains
-circumstances pack add <ref-or-name>
-circumstances pack list
+circs pack init <dir>
+circs pack add rule <pack> <rule-id>
+circs pack add case <pack> <rule-id> <case-id>
+circs pack lint <pack>          # lint-pack remains
+circs pack add <ref-or-name>
+circs pack list
 ```
 
 `pack init` writes a format-v4 pack: one rule, one positive case, one negative
@@ -171,12 +171,12 @@ known index and project names.
 ### 2. Run workflow
 
 ```bash
-circumstances run <pack> --subject <id>
-circumstances run list
-circumstances run show <id>
-circumstances run compare <a> <b>
-circumstances run score <bundle>
-circumstances subjects
+circs run <pack> --subject <id>
+circs run list
+circs run show <id>
+circs run compare <a> <b>
+circs run score <bundle>
+circs subjects
 ```
 
 `run list`, `show`, and `compare` read sealed bundles under `results/`.
@@ -196,7 +196,7 @@ passed only to a plugin that accepts it.
 ### 3. Local viewer
 
 ```bash
-circumstances view [results/]
+circs view [results/]
 ```
 
 `view` serves a read-only page on `127.0.0.1`. It lists runs, shows pass/fail
