@@ -1,6 +1,6 @@
 # Governance
 
-Circumstances is maintained by Aenima Labs.
+Circumstances is maintained by Ænima Labs.
 
 ## Decisions
 

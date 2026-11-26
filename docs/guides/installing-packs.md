@@ -20,7 +20,7 @@ first four forms. Names work with `pack add`.
 
 ## Install from the first-party index
 
-The package ships an index of the seven Aenima Labs packs, each pinned to one
+The package ships an index of the seven Ænima Labs packs, each pinned to one
 git revision and the SHA-256 of its directory.
 
 ```bash

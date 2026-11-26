@@ -4,7 +4,7 @@ dynamic = ["version", "readme"]
 description = "Open-source situational testing framework for AI agents"
 license = "Apache-2.0"
 requires-python = ">=3.12"
-authors = [{ name = "Aenima Labs", email = "hello@aenimalabs.com" }]
+authors = [{ name = "Ænima Labs", email = "hello@aenimalabs.com" }]
 keywords = ["agents", "evaluation", "testing", "safety", "situational-testing"]
 classifiers = [
   "Development Status :: 3 - Alpha",
